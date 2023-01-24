@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express'
 import cors from "cors";
 import router from './routes/auth.routes';
 import { connectDB } from './database';
+import userRouter from './routes/users.routes';
 connectDB()
 const app = express()
 app.use(cors());
@@ -25,6 +26,7 @@ app.use(
 )
 
 app.use(router)
+app.use(userRouter)
 
 app.listen(port, () => {
   return console.log(`Server is listening on ${port}`)
