@@ -1,8 +1,22 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = require("mongoose");
-[];
-const userSchema = new mongoose_1.Schema({
+import { model, Schema, Document } from "mongoose";
+import { IDisease } from "./disease.model";
+
+export interface User {
+    _id: string;
+    email: string;
+    password: string;
+    birthday: Date;
+    createdAt: Date;
+    updatedAt: Date;
+    kindOfFood: string;
+    weight: number;
+    height: number;
+    diseases: IDisease[];
+    termsAndConditions: boolean;
+    policy: boolean;
+}
+
+const userSchema = new Schema({
     email: {
         type: String,
         required: true,
@@ -46,5 +60,5 @@ const userSchema = new mongoose_1.Schema({
 }, {
     timestamps: true,
 });
-exports.default = (0, mongoose_1.model)('User', userSchema);
-//# sourceMappingURL=User.js.map
+
+export default model<User & Document>('User', userSchema);

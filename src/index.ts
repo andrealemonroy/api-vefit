@@ -1,8 +1,10 @@
 import express, { Request, Response } from 'express'
 import cors from "cors";
-import router from './routes/auth.routes';
 import { connectDB } from './database';
 import userRouter from './routes/users.routes';
+import diseasesRouter from './routes/diseases.routes';
+import authRouter from './routes/auth.routes';
+import alimentsRouter from './routes/aliments.routes';
 connectDB()
 const app = express()
 app.use(cors());
@@ -25,8 +27,10 @@ app.use(
     })
 )
 
-app.use(router)
+app.use(authRouter)
 app.use(userRouter)
+app.use(diseasesRouter)
+app.use(alimentsRouter)
 
 app.listen(port, () => {
   return console.log(`Server is listening on ${port}`)

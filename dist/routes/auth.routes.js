@@ -5,12 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const auth_controller_1 = __importDefault(require("../controllers/auth.controller"));
-const router = (0, express_1.Router)();
-router.post('/signup', auth_controller_1.default.signUp);
-router.post('/signin', auth_controller_1.default.signIn);
-router.get('/profile', auth_controller_1.default.profile);
-router.get('/logout', auth_controller_1.default.logout);
-router.put('/update', auth_controller_1.default.updateUser);
-router.delete('/delete', auth_controller_1.default.deleteUser);
-exports.default = router;
+const authRouter = (0, express_1.Router)();
+authRouter.post('/signup', auth_controller_1.default.signUp);
+authRouter.post('/signin', auth_controller_1.default.signIn);
+authRouter.get('/profile', auth_controller_1.default.profile);
+authRouter.get('/logout', auth_controller_1.default.logout);
+authRouter.put('/update', auth_controller_1.default.updateUser);
+authRouter.delete('/delete', auth_controller_1.default.deleteUser);
+exports.default = authRouter;
 //# sourceMappingURL=auth.routes.js.map

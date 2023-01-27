@@ -1,27 +1,7 @@
-import { model, Schema, Document } from "mongoose";
-
-export interface User {
-    _id: string;
-    email: string;
-    password: string;
-    birthday: Date;
-    createdAt: Date;
-    updatedAt: Date;
-    kindOfFood: string;
-    weight: number;
-    height: number;
-    diseases: Diseases;
-    termsAndConditions: boolean;
-    policy: boolean;
-}
-
-interface Diseases {
-    _id: string;
-    name: string;
-    description: string;
-}[]
-
-const userSchema = new Schema({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = require("mongoose");
+const userSchema = new mongoose_1.Schema({
     email: {
         type: String,
         required: true,
@@ -65,5 +45,5 @@ const userSchema = new Schema({
 }, {
     timestamps: true,
 });
-
-export default model<User & Document>('User', userSchema);
+exports.default = (0, mongoose_1.model)('User', userSchema);
+//# sourceMappingURL=User.model.js.map

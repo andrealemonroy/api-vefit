@@ -13,14 +13,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUser = exports.getUsers = void 0;
-const User_1 = __importDefault(require("../models/User"));
+const User_model_1 = __importDefault(require("../models/User.model"));
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const users = yield User_1.default.find();
+    const users = yield User_model_1.default.find();
     res.json(users);
 });
 exports.getUsers = getUsers;
 const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield User_1.default.findById(req.params.id);
+    const user = yield User_model_1.default.findById(req.params.id);
     res.json(user);
 });
 exports.getUser = getUser;

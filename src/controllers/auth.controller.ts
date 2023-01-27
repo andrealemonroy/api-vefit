@@ -1,4 +1,4 @@
-import User from "../models/User";
+import User from "../models/User.model";
 
 const jwt = require('jsonwebtoken');
 
