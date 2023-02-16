@@ -1,4 +1,6 @@
-import User from "../models/User.model";
+import { Collection } from 'mongoose';
+import SignUpUser from '../models/SignUpUser.model';
+import User from '../models/User.model';
 
 const jwt = require('jsonwebtoken');
 
@@ -21,67 +23,81 @@ const verifyToken = (req: any, res: any, next: any) => {
 };
 
 const signIn = async (req: any, res: any) => {
-    const user = await User.findOne({
-        email: req.body.email,
-        password: req.body.password,
-    });
-    if (!user) {
-        return res.status(404).send('The email doesn\'t exists');
-    }
-    const token = createToken(user);
-    res.status(200).json({ auth: true, token });
+  const user = await User.findOne({
+    email: req.body.email,
+    password: req.body.password,
+  });
+  if (!user) {
+    return res.status(404).send("The email doesn't exists");
+  }
+  const token = createToken(user);
+  res.status(200).json({ auth: true, token });
 };
 
 const signUp = async (req: any, res: any) => {
-    const { email, password } = req.body;
-    const newUser = new User({ email, password });
-    await newUser.save();
-    const token = createToken(newUser);
+  const { name, email, password } = req.body;
+  if (!name) {
+    return res.status(400).send('El nombre es requerido');
+  }
+  if (!email) {
+    return res.status(400).send('El email es requerido');
+  }
+  if (!password) {
+    return res.status(400).send('La contraseña es requerida');
+  }
+  try {
+    const existingUser = await SignUpUser.findOne({ email });
+    if (existingUser) {
+      return res.status(400).send('Ya existe un usuario con ese email');
+    }
+    const user = new SignUpUser({ name, email, password });
+    await user.save();
+    const token = createToken(user);
     res.status(200).json({ auth: true, token });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Error al crear el usuario');
+  }
 };
 
 const profile = async (req: any, res: any) => {
-    const user
-        = await User.findById(req.userId, { password: 0 });
-    if (!user) {
-        return res.status(404).send('No user found.');
-    }
-    res.status(200).json(user);
+  const user = await User.findById(req.userId, { password: 0 });
+  if (!user) {
+    return res.status(404).send('No user found.');
+  }
+  res.status(200).json(user);
 };
 
 const logout = (req: any, res: any) => {
-    res.status(200).send({ auth: false, token: null });
+  res.status(200).send({ auth: false, token: null });
 };
 
 const updateUser = async (req: any, res: any) => {
-    const user
-        = await User.findByIdAndUpdate
-            (req.userId, req.body, {
-                new: true,
-                runValidators: true,
-            });
-    if (!user) {
-        return res.status(404).send('No user found.');
-    }
-    const token = createToken(user);
-    res.status(200).json({ auth: true, token });
+  const user = await User.findByIdAndUpdate(req.userId, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  if (!user) {
+    return res.status(404).send('No user found.');
+  }
+  const token = createToken(user);
+  res.status(200).json({ auth: true, token });
 };
 
 const deleteUser = async (req: any, res: any) => {
-    const user
-        = await User.findByIdAndDelete(req.userId);
-    if (!user) {
-        return res.status(404).send('No user found.');
-    }
-    res.status(200).json({ auth: false, token: null });
+  const user = await User.findByIdAndDelete(req.userId);
+  if (!user) {
+    return res.status(404).send('No user found.');
+  }
+  res.status(200).json({ auth: false, token: null });
 };
 
 export default {
-    signIn,
-    signUp,
-    profile,
-    logout,
-    updateUser,
-    deleteUser,
-    verifyToken,
+  signIn,
+  signUp,
+  profile,
+  logout,
+  updateUser,
+  deleteUser,
+  verifyToken,
 };

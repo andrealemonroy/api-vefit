@@ -2,7 +2,6 @@ import { Schema, model } from "mongoose";
 
 
 export interface IAliment extends Document {
-    _id: string;
     name: string;
     description: string;
     source: string;
@@ -14,7 +13,10 @@ export interface IAliment extends Document {
     category: string;
     createdAt: Date;
     updatedAt: Date;
-    canBeReplacedBy: string[];
+    canBeReplacedBy: {
+        value: string;
+        label: string;
+    }[]
 }
 
 const AlimentsSchema = new Schema({
@@ -45,11 +47,11 @@ const AlimentsSchema = new Schema({
     },
     price: {
         type: Number,
-        required: true,
+        required: false,
     },
     image: {
         type: String,
-        required: true,
+        required: false,
     },
     category: {
         type: String,
@@ -64,7 +66,7 @@ const AlimentsSchema = new Schema({
         default: Date.now,
     },
     canBeReplacedBy: {
-        type: [String],
+        type: Array,
         required: true,
     },
 });

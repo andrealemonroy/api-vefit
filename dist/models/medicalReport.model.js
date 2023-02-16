@@ -1,41 +1,32 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
-const AlimentsSchema = new mongoose_1.Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    description: {
+const MedicalReportSchema = new mongoose_1.Schema({
+    initialDate: {
         type: String,
         required: true,
     },
-    source: {
+    endDate: {
         type: String,
         required: true,
     },
-    characteristics: {
+    nutritionist: {
         type: String,
         required: true,
     },
-    benefits: {
+    patient: {
         type: String,
         required: true,
     },
-    recommendations: {
+    nutritionalDiagnosis: {
         type: String,
         required: true,
     },
-    price: {
-        type: Number,
-        required: false,
-    },
-    image: {
+    nutritionalObjective: {
         type: String,
-        required: false,
+        required: true,
     },
-    category: {
+    nutritionalRecommendations: {
         type: String,
         required: true,
     },
@@ -47,10 +38,10 @@ const AlimentsSchema = new mongoose_1.Schema({
         type: Date,
         default: Date.now,
     },
-    canBeReplacedBy: {
-        type: Array,
+    name: {
+        type: String,
         required: true,
     },
 });
-exports.default = (0, mongoose_1.model)("Aliment", AlimentsSchema);
-//# sourceMappingURL=Aliment.model.js.map
+exports.default = (0, mongoose_1.model)('MedicalReport', MedicalReportSchema);
+//# sourceMappingURL=medicalReport.model.js.map

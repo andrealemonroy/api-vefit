@@ -24,12 +24,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const alimentController = __importStar(require("../controllers/aliments.controller"));
-const alimentsRouter = (0, express_1.Router)();
-alimentsRouter.get("/aliments", alimentController.getAliments);
-alimentsRouter.get("/aliments:id", alimentController.getAliment);
-alimentsRouter.post("/aliments", alimentController.createAliment);
-alimentsRouter.put("/aliments/:id", alimentController.updateAliment);
-alimentsRouter.delete("/aliments/:id", alimentController.deleteAliment);
-exports.default = alimentsRouter;
-//# sourceMappingURL=aliments.routes.js.map
+const medicalReportController = __importStar(require("../controllers/medicalReports.controller"));
+const medicalReportRouter = (0, express_1.Router)();
+medicalReportRouter.get('/medicalReports', medicalReportController.getMedicalReports);
+medicalReportRouter.get('/medicalReports:id', medicalReportController.getMedicalReport);
+medicalReportRouter.post('/medicalReports', medicalReportController.createMedicalReport);
+medicalReportRouter.put('/medicalReports/:id', medicalReportController.updateMedicalReport);
+medicalReportRouter.delete('/medicalReports/:id', medicalReportController.deleteMedicalReport);
+exports.default = medicalReportRouter;
+//# sourceMappingURL=medicalReports.routes.js.map

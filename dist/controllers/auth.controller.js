@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const SignUpUser_model_1 = __importDefault(require("../models/SignUpUser.model"));
 const User_model_1 = __importDefault(require("../models/User.model"));
 const jwt = require('jsonwebtoken');
 const createToken = (user) => {
@@ -34,17 +35,36 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         password: req.body.password,
     });
     if (!user) {
-        return res.status(404).send('The email doesn\'t exists');
+        return res.status(404).send("The email doesn't exists");
     }
     const token = createToken(user);
     res.status(200).json({ auth: true, token });
 });
 const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, password } = req.body;
-    const newUser = new User_model_1.default({ email, password });
-    yield newUser.save();
-    const token = createToken(newUser);
-    res.status(200).json({ auth: true, token });
+    const { name, email, password } = req.body;
+    if (!name) {
+        return res.status(400).send('El nombre es requerido');
+    }
+    if (!email) {
+        return res.status(400).send('El email es requerido');
+    }
+    if (!password) {
+        return res.status(400).send('La contraseña es requerida');
+    }
+    try {
+        const existingUser = yield SignUpUser_model_1.default.findOne({ email });
+        if (existingUser) {
+            return res.status(400).send('Ya existe un usuario con ese email');
+        }
+        const user = new SignUpUser_model_1.default({ name, email, password });
+        yield user.save();
+        const token = createToken(user);
+        res.status(200).json({ auth: true, token });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).send('Error al crear el usuario');
+    }
 });
 const profile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield User_model_1.default.findById(req.userId, { password: 0 });

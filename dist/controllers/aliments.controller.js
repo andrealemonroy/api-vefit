@@ -20,9 +20,17 @@ const getAliments = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 });
 exports.getAliments = getAliments;
 const createAliment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const newAliment = new Aliment_model_1.default(req.body);
-    const alimentSaved = yield newAliment.save();
-    return res.json(alimentSaved);
+    try {
+        const aliment = new Aliment_model_1.default(req.body);
+        yield aliment.save();
+        return res.json(aliment);
+    }
+    catch (error) {
+        return res.status(500).json({
+            message: 'Error creating aliment',
+            error,
+        });
+    }
 });
 exports.createAliment = createAliment;
 const getAliment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -32,12 +40,15 @@ const getAliment = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.getAliment = getAliment;
 const deleteAliment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const aliment = yield Aliment_model_1.default.findByIdAndDelete(req.params.id);
+    console.log(aliment);
     return res.json(aliment);
 });
 exports.deleteAliment = deleteAliment;
 const updateAliment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const alimentUpdated = yield Aliment_model_1.default.findByIdAndUpdate(req.params.id);
-    return res.json(alimentUpdated);
+    const aliment = yield Aliment_model_1.default.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+    });
+    return res.json(aliment);
 });
 exports.updateAliment = updateAliment;
 //# sourceMappingURL=aliments.controller.js.map

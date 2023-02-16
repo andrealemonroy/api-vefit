@@ -1,64 +1,63 @@
-import { model, Schema, Document } from "mongoose";
-import { IDisease } from "./disease.model";
+import { model, Schema, Document } from 'mongoose';
+import { IDisease } from './disease.model';
 
 export interface User {
-    _id: string;
-    email: string;
-    password: string;
-    birthday: Date;
-    createdAt: Date;
-    updatedAt: Date;
-    kindOfFood: string;
-    weight: number;
-    height: number;
-    diseases: IDisease[];
-    termsAndConditions: boolean;
-    policy: boolean;
+  _id: string;
+  email: string;
+  name: string;
+  password: string;
+  birthday: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  kindOfFood: string;
+  weight: number;
+  height: number;
+  diseases: IDisease[];
+  termsAndConditions: boolean;
+  policy: boolean;
 }
 
-const userSchema = new Schema({
+const updateUser = new Schema(
+  {
     email: {
-        type: String,
-        required: true,
-        unique: true,
-        lowercase: true,
-        trim: true,
-    },
-    password: {
-        type: String,
-        required: true,
-        trim: true,
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
     },
     birthday: {
-        type: Date,
-        required: true,
+      type: Date,
+      required: true,
     },
     kindOfFood: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     weight: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true,
     },
     height: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true,
     },
     diseases: {
-        type: Array,
-        required: true,
+      type: Array,
+      required: true,
     },
     termsAndConditions: {
-        type: Boolean,
-        required: true,
+      type: Boolean,
+      required: true,
     },
     policy: {
-        type: Boolean,
-        required: true,
+      type: Boolean,
+      required: true,
     },
-}, {
+  },
+  {
     timestamps: true,
-});
+  }
+);
 
-export default model<User & Document>('User', userSchema);
+export default model<User & Document>('User', updateUser);
