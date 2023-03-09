@@ -5,15 +5,19 @@ const authRouter = Router();
 
 authRouter.post('/signup', authController.signUp);
 
-authRouter.post('/signin', authController.signIn);
+authRouter.post('/signin', authController.adminSignIn);
 
-authRouter.get('/profile', authController.profile);
+authRouter.post('/login', authController.signIn);
+
+authRouter.post('/profile', authController.profile)
 
 authRouter.get('/logout', authController.logout);
 
-authRouter.put('/update', authController.updateUser);
+authRouter.put('/update/:id', authController.updateUser);
 
 authRouter.delete('/delete', authController.deleteUser);
+
+authRouter.post('/me', authController.me);
 
 export default authRouter;
 

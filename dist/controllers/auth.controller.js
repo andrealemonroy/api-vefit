@@ -29,19 +29,72 @@ const verifyToken = (req, res, next) => {
     req.userId = decoded.id;
     next();
 };
-const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield User_model_1.default.findOne({
-        email: req.body.email,
-        password: req.body.password,
-    });
-    if (!user) {
-        return res.status(404).send("The email doesn't exists");
+const findAdminByEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield SignUpUser_model_1.default.findOne({ email });
+});
+const findUserByEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield User_model_1.default.findOne({ email });
+});
+const adminSignIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!req.body.email || !req.body.password) {
+        return res.status(400).send('El email y la contraseña son requeridos');
     }
-    const token = createToken(user);
-    res.status(200).json({ auth: true, token });
+    try {
+        console.log(req.body.email);
+        const findUser = yield findAdminByEmail(req.body.email);
+        if (!findUser) {
+            return res.status(404).send('No user found.');
+        }
+        if ((findUser === null || findUser === void 0 ? void 0 : findUser.password) !== req.body.password) {
+            return res
+                .status(401)
+                .json({ auth: false, token: null, message: 'Contraseña incorrecta' });
+        }
+        const token = createToken(findUser);
+        res.status(200).json({
+            auth: true,
+            token,
+            message: 'Bienvenido a tu cuenta',
+            user: findUser,
+        });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).send('Error al iniciar sesión');
+    }
+});
+const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.body);
+    if (!req.body.email || !req.body.password) {
+        return res.status(400).send('El email y la contraseña son requeridos');
+    }
+    try {
+        const findUser = yield findUserByEmail(req.body.email);
+        console.log(findUser, 'findUser');
+        if (!findUser) {
+            return res.status(404).send('No user found.');
+        }
+        console.log(findUser === null || findUser === void 0 ? void 0 : findUser.password, req.body.password);
+        if ((findUser === null || findUser === void 0 ? void 0 : findUser.password) != req.body.password) {
+            return res
+                .status(401)
+                .json({ auth: false, token: null, message: 'Contraseña incorrecta' });
+        }
+        const token = createToken(findUser);
+        res.status(200).json({
+            auth: true,
+            token,
+            message: 'Bienvenido a tu cuenta',
+            user: findUser,
+        });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).send('Error al iniciar sesión');
+    }
 });
 const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, email, password } = req.body;
+    const { name, email, password, termsAndConditions, privacyPolicy } = req.body;
     if (!name) {
         return res.status(400).send('El nombre es requerido');
     }
@@ -52,14 +105,22 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         return res.status(400).send('La contraseña es requerida');
     }
     try {
-        const existingUser = yield SignUpUser_model_1.default.findOne({ email });
+        const existingUser = yield User_model_1.default.findOne({ email });
         if (existingUser) {
             return res.status(400).send('Ya existe un usuario con ese email');
         }
-        const user = new SignUpUser_model_1.default({ name, email, password });
+        const user = new User_model_1.default({
+            name,
+            email,
+            password,
+            termsAndConditions,
+            privacyPolicy,
+        });
         yield user.save();
         const token = createToken(user);
-        res.status(200).json({ auth: true, token });
+        res
+            .status(200)
+            .json({ auth: true, token, message: 'Usuario creado con éxito', user });
     }
     catch (error) {
         console.log(error);
@@ -67,7 +128,8 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 const profile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield User_model_1.default.findById(req.userId, { password: 0 });
+    console.log(req);
+    const user = yield SignUpUser_model_1.default.findById(req.userId, { password: 0 });
     if (!user) {
         return res.status(404).send('No user found.');
     }
@@ -77,10 +139,9 @@ const logout = (req, res) => {
     res.status(200).send({ auth: false, token: null });
 };
 const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield User_model_1.default.findByIdAndUpdate(req.userId, req.body, {
-        new: true,
-        runValidators: true,
-    });
+    console.log('userID', req.params.id);
+    const user = yield User_model_1.default.findById(req.params.id);
+    console.log(user, 'user');
     if (!user) {
         return res.status(404).send('No user found.');
     }
@@ -94,7 +155,14 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
     res.status(200).json({ auth: false, token: null });
 });
+const me = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const token = req.token;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = yield User_model_1.default.findById(decoded.id);
+    res.json(user);
+});
 exports.default = {
+    adminSignIn,
     signIn,
     signUp,
     profile,
@@ -102,5 +170,6 @@ exports.default = {
     updateUser,
     deleteUser,
     verifyToken,
+    me
 };
 //# sourceMappingURL=auth.controller.js.map

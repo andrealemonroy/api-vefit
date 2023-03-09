@@ -17,6 +17,7 @@ const disease_model_1 = __importDefault(require("../models/disease.model"));
 const getDiseases = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const diseases = yield disease_model_1.default.find();
+        console.log(diseases);
         res.status(200).json(diseases);
     }
     catch (error) {

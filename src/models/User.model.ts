@@ -6,15 +6,16 @@ export interface User {
   email: string;
   name: string;
   password: string;
-  birthday: Date;
+  birthday?: Date;
   createdAt: Date;
   updatedAt: Date;
-  kindOfFood: string;
-  weight: number;
-  height: number;
-  diseases: IDisease[];
+  typeOfFood?: string;
+  weight?: number;
+  height?: number;
+  diseases?: IDisease[];
   termsAndConditions: boolean;
-  policy: boolean;
+  privacyPolicy: boolean;
+  comparePassword: (password: string, receivedPassword: string) => Promise<boolean>;
 }
 
 const updateUser = new Schema(
@@ -26,31 +27,39 @@ const updateUser = new Schema(
       lowercase: true,
       trim: true,
     },
-    birthday: {
-      type: Date,
-      required: true,
-    },
-    kindOfFood: {
+    name: {
       type: String,
       required: true,
     },
+    password: {
+      type: String,
+      required: true,
+    },
+    birthday: {
+      type: Date,
+      required: false,
+    },
+    typeOfFood: {
+      type: String,
+      required: false,
+    },
     weight: {
       type: Number,
-      required: true,
+      required: false,
     },
     height: {
       type: Number,
-      required: true,
+      required: false,
     },
     diseases: {
       type: Array,
-      required: true,
+      required: false,
     },
     termsAndConditions: {
       type: Boolean,
       required: true,
     },
-    policy: {
+    privacyPolicy: {
       type: Boolean,
       required: true,
     },

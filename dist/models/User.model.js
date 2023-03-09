@@ -9,31 +9,39 @@ const updateUser = new mongoose_1.Schema({
         lowercase: true,
         trim: true,
     },
-    birthday: {
-        type: Date,
-        required: true,
-    },
-    kindOfFood: {
+    name: {
         type: String,
         required: true,
     },
+    password: {
+        type: String,
+        required: true,
+    },
+    birthday: {
+        type: Date,
+        required: false,
+    },
+    typeOfFood: {
+        type: String,
+        required: false,
+    },
     weight: {
         type: Number,
-        required: true,
+        required: false,
     },
     height: {
         type: Number,
-        required: true,
+        required: false,
     },
     diseases: {
         type: Array,
-        required: true,
+        required: false,
     },
     termsAndConditions: {
         type: Boolean,
         required: true,
     },
-    policy: {
+    privacyPolicy: {
         type: Boolean,
         required: true,
     },

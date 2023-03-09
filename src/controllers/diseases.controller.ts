@@ -8,6 +8,7 @@ export const getDiseases = async (
 ) => {
     try {
         const diseases = await Disease.find();
+        console.log(diseases)
         res.status(200).json(diseases);
     } catch (error) {
         next(error);
