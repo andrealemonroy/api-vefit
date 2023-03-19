@@ -2,7 +2,7 @@ import { Document, Schema, model } from 'mongoose';
 
 export interface IHealthyFoods extends Document {
   nameFood: string;
-  ingredients: string;
+  ingredients: [];
   preparation: string;
   createdAt: Date;
   updatedAt: Date;
@@ -14,7 +14,7 @@ const HealthyFoodsSchema = new Schema({
     required: true,
   },
   ingredients: {
-    type: String,
+    type: Array,
     required: true,
   },
   preparation: {

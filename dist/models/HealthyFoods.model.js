@@ -7,7 +7,7 @@ const HealthyFoodsSchema = new mongoose_1.Schema({
         required: true,
     },
     ingredients: {
-        type: String,
+        type: Array,
         required: true,
     },
     preparation: {
