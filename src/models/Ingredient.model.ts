@@ -3,11 +3,11 @@ import { Schema, model } from "mongoose";
 
 export interface IIngredient extends Document {
     nameIngredient: string;
-    proteins: number;
-    sugars: number;
-    carbohydrates: number;
-    fats: number;
-    calories: number;
+    proteins: string;
+    sugars: string;
+    carbohydrates: string;
+    fats: string;
+    calories: string;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -19,23 +19,23 @@ const IngredientsSchema = new Schema({
         unique: true,
     },
     proteins: {
-        type: Number,
+        type: String,
         required: true,
     },
     sugars: {
-        type: Number,
+        type: String,
         required: true,
     },
     carbohydrates: {
-        type: Number,
+        type: String,
         required: true,
     },
     fats: {
-        type: Number,
+        type: String,
         required: true,
     },
     calories: {
-        type: Number,
+        type: String,
         required: true,
     },
     createdAt: {
