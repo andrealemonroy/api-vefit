@@ -39,7 +39,7 @@ const updateUser = new Schema(
       type: Date,
       required: false,
     },
-    typeOfFood: {
+    kindOfFood: {
       type: String,
       required: false,
     },
@@ -58,10 +58,12 @@ const updateUser = new Schema(
     termsAndConditions: {
       type: Boolean,
       required: true,
+      default: false,
     },
     privacyPolicy: {
       type: Boolean,
       required: true,
+      default: false,
     },
   },
   {

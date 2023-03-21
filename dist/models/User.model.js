@@ -21,7 +21,7 @@ const updateUser = new mongoose_1.Schema({
         type: Date,
         required: false,
     },
-    typeOfFood: {
+    kindOfFood: {
         type: String,
         required: false,
     },
@@ -40,10 +40,12 @@ const updateUser = new mongoose_1.Schema({
     termsAndConditions: {
         type: Boolean,
         required: true,
+        default: false,
     },
     privacyPolicy: {
         type: Boolean,
         required: true,
+        default: false,
     },
 }, {
     timestamps: true,

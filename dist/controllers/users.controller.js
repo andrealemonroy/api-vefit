@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUser = exports.getUsers = void 0;
+exports.deleteUser = exports.getUser = exports.getUsers = void 0;
 const User_model_1 = __importDefault(require("../models/User.model"));
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const users = yield User_model_1.default.find();
@@ -24,4 +24,9 @@ const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.json(user);
 });
 exports.getUser = getUser;
+const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield User_model_1.default.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Usuario deleted' });
+});
+exports.deleteUser = deleteUser;
 //# sourceMappingURL=users.controller.js.map
