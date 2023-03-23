@@ -27,7 +27,7 @@ const express_1 = require("express");
 const alimentController = __importStar(require("../controllers/aliments.controller"));
 const alimentsRouter = (0, express_1.Router)();
 alimentsRouter.get("/aliments", alimentController.getAliments);
-alimentsRouter.get("/aliments:id", alimentController.getAliment);
+alimentsRouter.get("/aliments/:id", alimentController.getAliment);
 alimentsRouter.post("/aliments", alimentController.createAliment);
 alimentsRouter.put("/aliments/:id", alimentController.updateAliment);
 alimentsRouter.delete("/aliments/:id", alimentController.deleteAliment);

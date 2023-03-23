@@ -12,5 +12,5 @@ export const getUser = async (req: any, res: any) => {
 
 export const deleteUser = async (req: any, res: any) => {
     await User.findByIdAndDelete(req.params.id);
-    res.json({ message: 'Usuario deleted' });
+    res.json({ message: 'User deleted' });
   };

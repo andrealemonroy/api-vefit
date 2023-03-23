@@ -28,7 +28,7 @@ exports.getDiseases = getDiseases;
 const getDisease = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const disease = yield disease_model_1.default.findById(req.params.id);
-        res.status(200).json(disease);
+        res.json(disease);
     }
     catch (error) {
         next(error);
@@ -45,16 +45,25 @@ const createDisease = (req, res, next) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.createDisease = createDisease;
-const updateDisease = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const disease = yield disease_model_1.default.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        res.status(200).json(disease);
-    }
-    catch (error) {
-        next(error);
-    }
+const updateDisease = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const disease = yield disease_model_1.default.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+    });
+    return res.json(disease);
 });
 exports.updateDisease = updateDisease;
+// export const updateDisease = async (
+//     req: Request,
+//     res: Response,
+//     next: NextFunction
+// ) => {
+//     try {
+//         const disease = await Disease.findByIdAndUpdate(req.params.id, req.body, { new: true });
+//         res.status(200).json(disease);
+//     } catch (error) {
+//         next(error);
+//     }
+// }
 const deleteDisease = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const disease = yield disease_model_1.default.findByIdAndDelete(req.params.id);

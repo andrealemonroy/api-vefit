@@ -20,6 +20,7 @@ const getIngredients = (req, res) => __awaiter(void 0, void 0, void 0, function*
 });
 exports.getIngredients = getIngredients;
 const getIngredient = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req);
     const ingredient = yield Ingredient_model_1.default.findById(req.params.id);
     res.json(ingredient);
 });

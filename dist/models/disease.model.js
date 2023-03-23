@@ -25,7 +25,7 @@ const DiseasesSchema = new mongoose_1.Schema({
     },
     image: {
         type: String,
-        required: true,
+        required: false,
     },
     createdAt: {
         type: Date,

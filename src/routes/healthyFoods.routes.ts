@@ -8,7 +8,7 @@ healthyFoodsRouter.get(
   healthyFoodsController.getHealthyFoods
 );
 healthyFoodsRouter.get(
-  '/healthyFoods:id',
+  '/healthyFoods/:id',
   healthyFoodsController.getHealthyFoods
 );
 healthyFoodsRouter.post(

@@ -27,7 +27,7 @@ const express_1 = require("express");
 const ingredientsController = __importStar(require("../controllers/ingredients.controller"));
 const ingredientsRouter = (0, express_1.Router)();
 ingredientsRouter.get("/ingredients", ingredientsController.getIngredients);
-ingredientsRouter.get("/ingredients:id", ingredientsController.getIngredient);
+ingredientsRouter.get("/ingredients/:id", ingredientsController.getIngredient);
 ingredientsRouter.post("/ingredients", ingredientsController.createIngredient);
 ingredientsRouter.put("/ingredients/:id", ingredientsController.updateIngredient);
 ingredientsRouter.delete("/ingredients/:id", ingredientsController.deleteIngredient);

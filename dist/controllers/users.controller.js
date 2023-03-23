@@ -26,7 +26,7 @@ const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getUser = getUser;
 const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield User_model_1.default.findByIdAndDelete(req.params.id);
-    res.json({ message: 'Usuario deleted' });
+    res.json({ message: 'User deleted' });
 });
 exports.deleteUser = deleteUser;
 //# sourceMappingURL=users.controller.js.map
