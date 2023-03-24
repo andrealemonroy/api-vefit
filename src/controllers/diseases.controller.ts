@@ -15,19 +15,15 @@ export const getDiseases = async (
     }
 }
 
-export const getDisease = async (
-    req: Request,
-
-    res: Response,
-    next: NextFunction
-) => {
-    try {
-        const disease = await Disease.findById(req.params.id);
-        res.status(200).json(disease);
-    } catch (error) {
+export const getDisease = async (req: any, res: any, next: NextFunction) => {
+    try{
+    const disease = await Disease.findById(req.params.id);
+    res.json(disease);
+    } catch(error){
         next(error);
     }
-}
+  };
+
 
 export const createDisease = async (
     req: Request,
@@ -43,18 +39,26 @@ export const createDisease = async (
     }
 }
 
-export const updateDisease = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
-    try {
-        const disease = await Disease.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        res.status(200).json(disease);
-    } catch (error) {
-        next(error);
-    }
-}
+export const updateDisease = async (req: any, res: any): Promise<Response> => {
+    const disease = await Disease.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    return res.json(disease);
+  };
+  
+
+// export const updateDisease = async (
+//     req: Request,
+//     res: Response,
+//     next: NextFunction
+// ) => {
+//     try {
+//         const disease = await Disease.findByIdAndUpdate(req.params.id, req.body, { new: true });
+//         res.status(200).json(disease);
+//     } catch (error) {
+//         next(error);
+//     }
+// }
 
 export const deleteDisease = async (
     req: Request,

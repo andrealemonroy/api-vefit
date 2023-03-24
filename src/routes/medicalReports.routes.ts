@@ -8,7 +8,7 @@ medicalReportRouter.get(
   medicalReportController.getMedicalReports
 );
 medicalReportRouter.get(
-  '/medicalReports:id',
+  '/medicalReports/:id',
   medicalReportController.getMedicalReport
 );
 medicalReportRouter.post(

@@ -28,9 +28,9 @@ const express_1 = require("express");
 const diseasesCtrl = __importStar(require("../controllers/diseases.controller"));
 const diseasesRouter = (0, express_1.Router)();
 diseasesRouter.get("/diseases", diseasesCtrl.getDiseases);
-diseasesRouter.get("/diseases:id", diseasesCtrl.getDisease);
+diseasesRouter.get("/diseases/:id", diseasesCtrl.getDisease);
 diseasesRouter.post("/diseases", diseasesCtrl.createDisease);
-diseasesRouter.put("/diseases:id", diseasesCtrl.updateDisease);
-diseasesRouter.delete("/diseases:id", diseasesCtrl.deleteDisease);
+diseasesRouter.put("/diseases/:id", diseasesCtrl.updateDisease);
+diseasesRouter.delete("/diseases/:id", diseasesCtrl.deleteDisease);
 exports.default = diseasesRouter;
 //# sourceMappingURL=diseases.routes.js.map

@@ -11,6 +11,8 @@ const diseases_routes_1 = __importDefault(require("./routes/diseases.routes"));
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const aliments_routes_1 = __importDefault(require("./routes/aliments.routes"));
 const medicalReports_routes_1 = __importDefault(require("./routes/medicalReports.routes"));
+const healthyFoods_routes_1 = __importDefault(require("./routes/healthyFoods.routes"));
+const ingredients_routes_1 = __importDefault(require("./routes/ingredients.routes"));
 (0, database_1.connectDB)();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
@@ -32,6 +34,8 @@ app.use(users_routes_1.default);
 app.use(diseases_routes_1.default);
 app.use(aliments_routes_1.default);
 app.use(medicalReports_routes_1.default);
+app.use(healthyFoods_routes_1.default);
+app.use(ingredients_routes_1.default);
 app.listen(port, () => {
     return console.log(`Server is listening on ${port}`);
 });

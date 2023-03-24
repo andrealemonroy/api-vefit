@@ -10,3 +10,7 @@ export const getUser = async (req: any, res: any) => {
     res.json(user);
 }
 
+export const deleteUser = async (req: any, res: any) => {
+    await User.findByIdAndDelete(req.params.id);
+    res.json({ message: 'User deleted' });
+  };
