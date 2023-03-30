@@ -4,8 +4,8 @@ import { Router } from "express";
 const categoriesRouter = Router()
 
 
-categoriesRouter.get('');
-categoriesRouter.get('');
+categoriesRouter.get('/category');
+categoriesRouter.post('/category');
 
 
 
