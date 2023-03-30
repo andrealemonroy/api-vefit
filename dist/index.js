@@ -13,7 +13,9 @@ const aliments_routes_1 = __importDefault(require("./routes/aliments.routes"));
 const medicalReports_routes_1 = __importDefault(require("./routes/medicalReports.routes"));
 const healthyFoods_routes_1 = __importDefault(require("./routes/healthyFoods.routes"));
 const ingredients_routes_1 = __importDefault(require("./routes/ingredients.routes"));
+const express_openid_connect_1 = require("express-openid-connect");
 (0, database_1.connectDB)();
+const { requiresAuth } = require('express-openid-connect');
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
@@ -38,5 +40,22 @@ app.use(healthyFoods_routes_1.default);
 app.use(ingredients_routes_1.default);
 app.listen(port, () => {
     return console.log(`Server is listening on ${port}`);
+});
+const config = {
+    authRequired: false,
+    auth0Logout: true,
+    secret: 'a long, randomly-generated string stored in env',
+    baseURL: 'http://localhost:4000',
+    clientID: '5CBK4ONkI4dHXbIGgSwNsdtLmP6W3iVp',
+    issuerBaseURL: 'https://vefit.us.auth0.com'
+};
+// auth router attaches /login, /logout, and /callback routes to the baseURL
+app.use((0, express_openid_connect_1.auth)(config));
+// req.isAuthenticated is provided from the auth router
+app.get('/', (req, res) => {
+    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+});
+app.get('/profile', requiresAuth(), (req, res) => {
+    res.send(JSON.stringify(req.oidc.user));
 });
 //# sourceMappingURL=index.js.map
