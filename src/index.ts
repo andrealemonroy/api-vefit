@@ -37,7 +37,6 @@ app.use(alimentsRouter)
 app.use(medicalReportRouter)
 app.use(healthyFoodsRouter)
 app.use(ingredientsRouter)
-
 app.listen(port, () => {
   return console.log(`Server is listening on ${port}`)
 })
