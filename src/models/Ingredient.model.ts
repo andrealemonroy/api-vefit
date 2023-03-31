@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose";
 
 
+
 export interface IIngredient extends Document {
     nameIngredient: string;
     proteins: string;
@@ -8,6 +9,7 @@ export interface IIngredient extends Document {
     carbohydrates: string;
     fats: string;
     calories: string;
+    category: string;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -37,6 +39,10 @@ const IngredientsSchema = new Schema({
     calories: {
         type: String,
         required: true,
+    },
+    category:{
+        type: Schema.Types.ObjectId,
+        ref: "Category"
     },
     createdAt: {
         type: Date,
