@@ -5,13 +5,13 @@ export interface ICategories extends Document {
     image: string;
     createdAt: Date;
     updatedAt: Date;
-
 }
 
 const CategoriesSchema = new Schema({
     name:{
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     image:{
         type: String,
@@ -24,8 +24,7 @@ const CategoriesSchema = new Schema({
     updatedAt:{
         type: Date,
         default: Date.now
-    }   
-
+    }  
 })
 
 export default model<ICategories>("Category", CategoriesSchema);

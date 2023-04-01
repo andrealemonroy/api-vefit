@@ -4,7 +4,8 @@ const mongoose_1 = require("mongoose");
 const CategoriesSchema = new mongoose_1.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     image: {
         type: String,
