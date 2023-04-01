@@ -17,7 +17,7 @@ const User_model_1 = __importDefault(require("../models/User.model"));
 const jwt = require('jsonwebtoken');
 const createToken = (user) => {
     return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: 86400, // 24 hours
+        expiresIn: 1000, // 24 hours
     });
 };
 const verifyToken = (req, res, next) => {
