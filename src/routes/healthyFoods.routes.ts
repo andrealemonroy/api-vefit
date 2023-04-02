@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import * as healthyFoodsController from "../controllers/HealthyFoods.controller";
+import * as healthyFoodsController from "../controllers/healthyFoods.controller";
 
 const healthyFoodsRouter = Router();
 

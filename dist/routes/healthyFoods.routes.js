@@ -24,7 +24,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const healthyFoodsController = __importStar(require("../controllers/HealthyFoods.controller"));
+const healthyFoodsController = __importStar(require("../controllers/healthyFoods.controller"));
 const healthyFoodsRouter = (0, express_1.Router)();
 healthyFoodsRouter.get('/healthyFoods', healthyFoodsController.getHealthyFoods);
 healthyFoodsRouter.get('/healthyFoods/:id', healthyFoodsController.getHealthyFoods);
