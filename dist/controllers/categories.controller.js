@@ -12,8 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCategory = exports.createCategory = void 0;
+exports.getCategoryByIngredients = exports.getCategory = exports.createCategory = void 0;
 const Categories_model_1 = __importDefault(require("../models/Categories.model"));
+const Ingredient_model_1 = __importDefault(require("../models/Ingredient.model"));
 const createCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const category = yield Categories_model_1.default.create(req.body);
@@ -32,4 +33,15 @@ const getCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     return res.json(category);
 });
 exports.getCategory = getCategory;
+const getCategoryByIngredients = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const category = yield Categories_model_1.default.findOne({ name: req.query.name });
+        const ingredients = yield Ingredient_model_1.default.find({ category: category._id }).populate('category');
+        res.json(ingredients);
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+});
+exports.getCategoryByIngredients = getCategoryByIngredients;
 //# sourceMappingURL=categories.controller.js.map
