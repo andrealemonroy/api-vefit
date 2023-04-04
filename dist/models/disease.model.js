@@ -33,4 +33,4 @@ const DiseasesSchema = new mongoose_1.Schema({
     },
 });
 exports.default = (0, mongoose_1.model)("Disease", DiseasesSchema);
-//# sourceMappingURL=disease.model.js.map
+//# sourceMappingURL=Disease.model.js.map

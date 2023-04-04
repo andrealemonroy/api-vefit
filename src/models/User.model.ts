@@ -1,5 +1,5 @@
 import { model, Schema, Document } from 'mongoose';
-import { IDisease } from './disease.model';
+import { IDisease } from './Disease.model';
 
 export interface User {
   _id: string;

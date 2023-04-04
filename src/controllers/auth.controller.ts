@@ -4,6 +4,7 @@ import User from '../models/User.model';
 import { handleHtppError } from '../utils/handleHtppError';
 import {encrypt, compare} from "../utils/handlePassword"
 
+
 const jwt = require('jsonwebtoken');
 
 
@@ -31,7 +32,7 @@ const findAdminByEmail = async (email: string) => {
 };
 
 const findUserByEmail = async (email: string) => {
-  return await User.findOne({ email });
+  return await User.findOne({ email:email });
 };
 
 const adminSignIn = async (req: any, res: any) => {
@@ -69,11 +70,12 @@ const signIn = async (req: any, res: any) => {
   }
   try {
     const findUser = await findUserByEmail(req.body.email);
+    console.log(findUser)
     const hashPassword = await User.findOne({ email: String }).select("password");
     console.log(findUser, 'findUser')
     const checkPassword = await compare(req.body.password, hashPassword.password);
     findUser.set("password", undefined, { strict: false }); // oculto la password
-    console.log(findUser.password, "escondela :P")
+    console.log(findUser.password, "escondela")
     if (!checkPassword) {
       handleHtppError(res, "Invalid Password", 401);
       return;

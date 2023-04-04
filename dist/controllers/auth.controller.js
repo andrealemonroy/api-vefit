@@ -36,7 +36,7 @@ const findAdminByEmail = (email) => __awaiter(void 0, void 0, void 0, function* 
     return yield SignUpUser_model_1.default.findOne({ email });
 });
 const findUserByEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield User_model_1.default.findOne({ email });
+    return yield User_model_1.default.findOne({ email: email });
 });
 const adminSignIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.body.email || !req.body.password) {
@@ -73,11 +73,12 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     try {
         const findUser = yield findUserByEmail(req.body.email);
+        console.log(findUser);
         const hashPassword = yield User_model_1.default.findOne({ email: String }).select("password");
         console.log(findUser, 'findUser');
         const checkPassword = yield (0, handlePassword_1.compare)(req.body.password, hashPassword.password);
         findUser.set("password", undefined, { strict: false }); // oculto la password
-        console.log(findUser.password, "escondela :P");
+        console.log(findUser.password, "escondela");
         if (!checkPassword) {
             (0, handleHtppError_1.handleHtppError)(res, "Invalid Password", 401);
             return;
