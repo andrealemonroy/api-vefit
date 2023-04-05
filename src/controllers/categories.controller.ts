@@ -22,11 +22,21 @@ export const getCategory = async (req: any, res: any): Promise<Response> => {
 
 export const getCategoryByIngredients = async (req: any, res: any) => {
   try {
-
-      const category = await Categories.findOne({name: req.query.name})
-      const ingredients = await Ingredients.find({category: category._id}).populate('category')
-     res.json(ingredients);
+    const name = req.query.name;
+    const category = await Categories.findOne({ name }); // Buscar la categoría con su producto por nombre en la base de datos
+    if (!category) {
+      return res.status(404).json({
+        message: `No se encontró una categoría con el nombre "${name}"`,
+      });
+    }
+    const ingredients = await Ingredients.find({
+      category: category._id,
+    }).populate('category');
+    res.json(ingredients);
   } catch (error) {
-     console.log(error.message);
+    console.log(error.message);
+    res
+      .status(500)
+      .json({ message: 'Error al obtener la categoría de ingredientes' });
   }
-}
+};

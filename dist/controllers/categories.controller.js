@@ -35,12 +35,23 @@ const getCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getCategory = getCategory;
 const getCategoryByIngredients = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const category = yield Categories_model_1.default.findOne({ name: req.query.name });
-        const ingredients = yield Ingredient_model_1.default.find({ category: category._id }).populate('category');
+        const name = req.query.name;
+        const category = yield Categories_model_1.default.findOne({ name }); // Buscar la categoría con su producto por nombre en la base de datos
+        if (!category) {
+            return res.status(404).json({
+                message: `No se encontró una categoría con el nombre "${name}"`,
+            });
+        }
+        const ingredients = yield Ingredient_model_1.default.find({
+            category: category._id,
+        }).populate('category');
         res.json(ingredients);
     }
     catch (error) {
         console.log(error.message);
+        res
+            .status(500)
+            .json({ message: 'Error al obtener la categoría de ingredientes' });
     }
 });
 exports.getCategoryByIngredients = getCategoryByIngredients;
