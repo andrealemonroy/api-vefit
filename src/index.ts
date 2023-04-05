@@ -22,10 +22,6 @@ const config = {
   };
 
  const app = express()
-
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
     
 const port = process.env.PORT || 8080
 
@@ -59,6 +55,9 @@ app.use(
     return console.log(`Server is listening on ${port}`)
   })
 
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(authRouter)
 app.use(userRouter)
 app.use(diseasesRouter)

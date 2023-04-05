@@ -25,9 +25,6 @@ const config = {
     issuerBaseURL: 'https://vefit.us.auth0.com'
 };
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)());
-app.use(express_1.default.json());
-app.use(express_1.default.urlencoded({ extended: true }));
 const port = process.env.PORT || 8080;
 app.use((_req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -51,6 +48,9 @@ app.get('/profile', requiresAuth(), (req, res) => {
 app.listen(port, () => {
     return console.log(`Server is listening on ${port}`);
 });
+app.use((0, cors_1.default)());
+app.use(express_1.default.json());
+app.use(express_1.default.urlencoded({ extended: true }));
 app.use(auth_routes_1.default);
 app.use(users_routes_1.default);
 app.use(diseases_routes_1.default);
