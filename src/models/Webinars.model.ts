@@ -1,25 +1,13 @@
 import { model, Schema } from "mongoose";
 
-/**
- * 
- Título:
-
-Link:
-
-Responsables:
-
-     Nombre
-
-     Rol
-
-Fecha y hora:
- */
-
 export interface IWebinars {
   titulo: string;
   link: string;
-  name: string;
-  fechaYHora: Date;
+  responsables: {
+    name: string;
+    rol: string;
+  };
+  fechaYHora: string;
 }
 
 const webinars = new Schema(
@@ -29,17 +17,18 @@ const webinars = new Schema(
       required: true,
     },
     fechaYHora: {
-      type: Date,
+      type: String,
       required: true,
     },
     link: {
-      type: Array,
+      type: String,
       required: true,
     },
+    responsables: {
+      nombre: String,
+      rol: String,
+    },
   },
-  {
-    timestamps: true,
-  }
 );
 
 export default model<IWebinars>("Webinars", webinars);

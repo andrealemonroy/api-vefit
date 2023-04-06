@@ -7,15 +7,17 @@ const webinars = new mongoose_1.Schema({
         required: true,
     },
     fechaYHora: {
-        type: Date,
+        type: String,
         required: true,
     },
     link: {
-        type: Array,
+        type: String,
         required: true,
     },
-}, {
-    timestamps: true,
+    responsables: {
+        nombre: String,
+        rol: String,
+    },
 });
 exports.default = (0, mongoose_1.model)("Webinars", webinars);
 //# sourceMappingURL=Webinars.model.js.map
