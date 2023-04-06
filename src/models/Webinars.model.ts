@@ -4,7 +4,7 @@ export interface IWebinars {
   titulo: string;
   link: string;
   responsables: {
-    name: string;
+    nombre: string;
     rol: string;
   };
   fechaYHora: string;
