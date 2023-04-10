@@ -1,7 +1,7 @@
 import { model, Schema, Document } from 'mongoose';
 import { IDisease } from './Disease.model';
 
-export interface User {
+export interface UserI extends Document {
   _id: string;
   email: string;
   name: string;
@@ -29,11 +29,11 @@ const updateUser = new Schema(
     },
     name: {
       type: String,
-      required: true,
+      required: false,
     },
     password: {
       type: String,
-      required: true,
+      required: false,
     },
     birthday: {
       type: Date,
@@ -65,10 +65,16 @@ const updateUser = new Schema(
       required: true,
       default: false,
     },
+    sub:{
+      type:String,
+      require:true,
+      unique: true,
+      
+    }
   },
   {
     timestamps: true,
   }
 );
 
-export default model<User & Document>('User', updateUser);
+export default model<UserI & Document>('User', updateUser);

@@ -1,25 +1,33 @@
 import { Router } from "express";
 import authController from "../controllers/auth.controller";
-const { requiresAuth } = require('express-openid-connect');
+import {ensureAuthenticated} from '../middleware/ensureAuthenticate'
 
 
 const authRouter = Router();
 
-authRouter.post('/signup',requiresAuth(), authController.signUp);
+authRouter.get("/login", authController.login);
 
-authRouter.post('/signin',requiresAuth(), authController.adminSignIn);
+authRouter.get("/callback", authController.callback);
 
-authRouter.post('/login',requiresAuth(), authController.signIn);
+authRouter.post("/signup", authController.signUp);
 
-authRouter.post('/profile',requiresAuth(), authController.profile)
+authRouter.post("/signin", authController.adminSignIn);
 
-authRouter.get('/logout',requiresAuth(), authController.logout);
+authRouter.get("/profile", authController.profile);
 
-authRouter.put('/update/:id',requiresAuth(), authController.updateUser);
+authRouter.post('/logout', authController.logout);
 
-authRouter.delete('/delete',requiresAuth(), authController.deleteUser);
+authRouter.put("/update/:id", authController.updateUser);
 
-authRouter.post('/me',requiresAuth(), authController.me);
+authRouter.delete("/delete", authController.deleteUser);
+
+authRouter.post("/me", authController.me);
+
+authRouter.get("/", (_req: any, res: any) => {
+    res.json({ msj: "hola sali" });
+ });
+authRouter.get("/prueba", ensureAuthenticated, (_req: any, res: any) => {
+    res.json({ msj: "hola paso prueba" });
+ });
 
 export default authRouter;
-

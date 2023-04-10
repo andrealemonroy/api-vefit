@@ -11,11 +11,11 @@ const updateUser = new mongoose_1.Schema({
     },
     name: {
         type: String,
-        required: true,
+        required: false,
     },
     password: {
         type: String,
-        required: true,
+        required: false,
     },
     birthday: {
         type: Date,
@@ -47,6 +47,11 @@ const updateUser = new mongoose_1.Schema({
         required: true,
         default: false,
     },
+    sub: {
+        type: String,
+        require: true,
+        unique: true,
+    }
 }, {
     timestamps: true,
 });

@@ -13,44 +13,44 @@ const aliments_routes_1 = __importDefault(require("./routes/aliments.routes"));
 const medicalReports_routes_1 = __importDefault(require("./routes/medicalReports.routes"));
 const healthyFoods_routes_1 = __importDefault(require("./routes/healthyFoods.routes"));
 const ingredients_routes_1 = __importDefault(require("./routes/ingredients.routes"));
-const express_openid_connect_1 = require("express-openid-connect");
+const passportConfig_1 = require("./middleware/passportConfig");
+const passport_1 = __importDefault(require("passport"));
+const express_session_1 = __importDefault(require("express-session"));
+passportConfig_1.serializarUser; // serializa usuario de passport
+passportConfig_1.deserializeUser; // deserializa usuario de passport
+passportConfig_1.configPassport;
 (0, database_1.connectDB)();
-const { requiresAuth } = require('express-openid-connect');
-const config = {
-    authRequired: false,
-    auth0Logout: true,
-    secret: 'a long, randomly-generated string stored in env',
-    baseURL: 'http://localhost:4000',
-    clientID: '5CBK4ONkI4dHXbIGgSwNsdtLmP6W3iVp',
-    issuerBaseURL: 'https://vefit.us.auth0.com'
-};
 const app = (0, express_1.default)();
+const HOUR_IN_MS = 36000;
+app.use((0, express_session_1.default)({
+    secret: process.env.JWT_SECRET || "secret-key",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false,
+        httpOnly: true,
+        maxAge: HOUR_IN_MS, // tiempo de expiración de la cookie
+    },
+}));
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 const port = process.env.PORT || 8080;
 app.use((_req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
 app.use((0, cors_1.default)({
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
 }));
-// auth router attaches /login, /logout, and /callback routes to the baseURL
-app.use((0, express_openid_connect_1.auth)(config));
-// req.isAuthenticated is provided from the auth router
-app.get('/', (req, res) => {
-    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
-});
-app.get('/profile', requiresAuth(), (req, res) => {
-    res.send(JSON.stringify(req.oidc.user));
-});
 app.listen(port, () => {
     return console.log(`Server is listening on ${port}`);
 });
+app.use(passport_1.default.initialize());
+app.use(passport_1.default.session());
 app.use(auth_routes_1.default);
 app.use(users_routes_1.default);
 app.use(diseases_routes_1.default);
