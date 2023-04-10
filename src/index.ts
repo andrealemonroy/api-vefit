@@ -9,6 +9,7 @@ import medicalReportRouter from './routes/medicalReports.routes';
 import healthyFoodsRouter from './routes/healthyFoods.routes';
 import ingredientsRouter from './routes/ingredients.routes';
 import categoriesRouter from './routes/categories.routes';
+import appointmentScheduleRouter from './routes/appointmentSchedule.routes';
 connectDB()
 const app = express()
 app.use(cors());
@@ -39,6 +40,7 @@ app.use(medicalReportRouter)
 app.use(healthyFoodsRouter)
 app.use(ingredientsRouter)
 app.use(categoriesRouter)
+app.use(appointmentScheduleRouter)
 
 app.listen(port, () => {
   return console.log(`Server is listening on ${port}`)
