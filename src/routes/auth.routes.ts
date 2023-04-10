@@ -15,7 +15,7 @@ authRouter.post("/signin", authController.adminSignIn);
 
 authRouter.get("/profile", authController.profile);
 
-authRouter.post('/logout', authController.logout);
+authRouter.get('/logout', authController.logout);
 
 authRouter.put("/update/:id", authController.updateUser);
 

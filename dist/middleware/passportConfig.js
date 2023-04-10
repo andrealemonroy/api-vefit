@@ -16,7 +16,7 @@ exports.deserializeUser = exports.serializarUser = exports.configPassport = void
 const passport_1 = __importDefault(require("passport"));
 const User_model_1 = __importDefault(require("../models/User.model"));
 const passport_auth0_1 = require("passport-auth0");
-require("dotenv").config();
+require('dotenv').config();
 const { AUTH0_DOMAIN, AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET } = process.env;
 exports.configPassport = passport_1.default.use("auth0", new passport_auth0_1.Strategy({
     domain: AUTH0_DOMAIN,
@@ -25,8 +25,7 @@ exports.configPassport = passport_1.default.use("auth0", new passport_auth0_1.St
     callbackURL: "http://localhost:4000/callback",
 }, function (accessToken, refreshToken, extraParams, profile, done) {
     return __awaiter(this, void 0, void 0, function* () {
-        let user = (yield User_model_1.default.findOne({ sub: profile.id })) ||
-            (yield User_model_1.default.findOne({ email: profile.emails[0].value }));
+        let user = (yield User_model_1.default.findOne({ sub: profile.id })) || (yield User_model_1.default.findOne({ email: profile.emails[0].value }));
         if (!user) {
             const userRegistre = new User_model_1.default({
                 name: profile.displayName,

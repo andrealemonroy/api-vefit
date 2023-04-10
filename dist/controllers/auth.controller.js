@@ -204,10 +204,10 @@ const logout = (req, res, next) => {
         if (err) {
             return next(err);
         }
-        console.log(req);
+        // console.log(req);
         req.session.destroy((err) => {
             res.clearCookie("connect.sid");
-            res.redirect(`${AUTH0_DOMAIN}/oidc/logout?post_logout_redirect_uri= ${qs_1.default.stringify(params)}`);
+            res.redirect(`https://${AUTH0_DOMAIN}/oidc/logout?get_logout_redirect_uri= ${qs_1.default.stringify(params)}`);
         });
     });
 };

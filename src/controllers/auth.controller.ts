@@ -218,11 +218,11 @@ const logout = (req: any, res: any, next: (arg0: any) => any) => {
       if (err) {
          return next(err);
       }
-      console.log(req);
+      // console.log(req);
       req.session.destroy((err: any) => {
          res.clearCookie("connect.sid");
          res.redirect(
-            `${AUTH0_DOMAIN}/oidc/logout?post_logout_redirect_uri= ${qs.stringify(
+            `https://${AUTH0_DOMAIN}/oidc/logout?get_logout_redirect_uri= ${qs.stringify(
                params
             )}`
          );
