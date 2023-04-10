@@ -67,7 +67,7 @@ const updateUser = new Schema(
     },
     sub:{
       type:String,
-      require:true,
+      require:false,
       unique: true,
       
     }

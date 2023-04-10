@@ -11,16 +11,13 @@ authRouter.get("/login", auth_controller_1.default.login);
 authRouter.get("/callback", auth_controller_1.default.callback);
 authRouter.post("/signup", auth_controller_1.default.signUp);
 authRouter.post("/signin", auth_controller_1.default.adminSignIn);
-authRouter.get("/profile", auth_controller_1.default.profile);
+authRouter.get("/profile", ensureAuthenticate_1.ensureAuthenticated, auth_controller_1.default.profile);
 authRouter.get('/logout', auth_controller_1.default.logout);
 authRouter.put("/update/:id", auth_controller_1.default.updateUser);
 authRouter.delete("/delete", auth_controller_1.default.deleteUser);
 authRouter.post("/me", auth_controller_1.default.me);
 authRouter.get("/", (_req, res) => {
-    res.json({ msj: "hola sali" });
-});
-authRouter.get("/prueba", ensureAuthenticate_1.ensureAuthenticated, (_req, res) => {
-    res.json({ msj: "hola paso prueba" });
+    res.json({ msj: "" });
 });
 exports.default = authRouter;
 //# sourceMappingURL=auth.routes.js.map

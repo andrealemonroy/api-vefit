@@ -49,7 +49,7 @@ const updateUser = new mongoose_1.Schema({
     },
     sub: {
         type: String,
-        require: true,
+        require: false,
         unique: true,
     }
 }, {

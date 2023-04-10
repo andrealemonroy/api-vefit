@@ -13,7 +13,7 @@ authRouter.post("/signup", authController.signUp);
 
 authRouter.post("/signin", authController.adminSignIn);
 
-authRouter.get("/profile", authController.profile);
+authRouter.get("/profile",ensureAuthenticated, authController.profile);
 
 authRouter.get('/logout', authController.logout);
 
@@ -24,10 +24,8 @@ authRouter.delete("/delete", authController.deleteUser);
 authRouter.post("/me", authController.me);
 
 authRouter.get("/", (_req: any, res: any) => {
-    res.json({ msj: "hola sali" });
+    res.json({ msj: "" });
  });
-authRouter.get("/prueba", ensureAuthenticated, (_req: any, res: any) => {
-    res.json({ msj: "hola paso prueba" });
- });
+
 
 export default authRouter;
