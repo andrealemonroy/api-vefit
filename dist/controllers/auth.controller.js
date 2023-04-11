@@ -14,10 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const SignUpUser_model_1 = __importDefault(require("../models/SignUpUser.model"));
 const User_model_1 = __importDefault(require("../models/User.model"));
+const hadleHtppError_1 = require("../utils/hadleHtppError");
+const handlePassword_1 = require("../utils/handlePassword");
 const jwt = require('jsonwebtoken');
 const createToken = (user) => {
+    console.log("createToken", process.env.JWT_SECRET);
     return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: 86400, // 24 hours
+        expiresIn: 1000, // 24 hours
     });
 };
 const verifyToken = (req, res, next) => {
@@ -33,7 +36,7 @@ const findAdminByEmail = (email) => __awaiter(void 0, void 0, void 0, function* 
     return yield SignUpUser_model_1.default.findOne({ email });
 });
 const findUserByEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield User_model_1.default.findOne({ email });
+    return yield User_model_1.default.findOne({ email: email });
 });
 const adminSignIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.body.email || !req.body.password) {
@@ -64,13 +67,22 @@ const adminSignIn = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
+    console.log(req.body, "mensaje");
     if (!req.body.email || !req.body.password) {
         return res.status(400).send('El email y la contraseña son requeridos');
     }
     try {
         const findUser = yield findUserByEmail(req.body.email);
+        console.log(findUser);
+        const hashPassword = yield User_model_1.default.findOne({ email: String }).select("password");
         console.log(findUser, 'findUser');
+        const checkPassword = yield (0, handlePassword_1.compare)(req.body.password, hashPassword.password);
+        findUser.set("password", undefined, { strict: false }); // oculto la password
+        console.log(findUser.password, "escondela");
+        if (!checkPassword) {
+            (0, hadleHtppError_1.handleHtppError)(res, "Invalid Password", 401);
+            return;
+        }
         if (!findUser) {
             return res.status(404).send('No user found.');
         }
@@ -94,7 +106,8 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, email, password, termsAndConditions, privacyPolicy } = req.body;
+    const { name, email, password, birthday, weight, height, diseases, termsAndConditions, privacyPolicy } = req.body;
+    const passwordHash = yield (0, handlePassword_1.encrypt)(req.body.password); //encrypta la password
     if (!name) {
         return res.status(400).send('El nombre es requerido');
     }
@@ -109,15 +122,22 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (existingUser) {
             return res.status(400).send('Ya existe un usuario con ese email');
         }
+        console.log(req.body);
         const user = new User_model_1.default({
             name,
             email,
-            password,
+            password: passwordHash,
+            birthday,
+            weight,
+            height,
+            diseases,
             termsAndConditions,
             privacyPolicy,
         });
         yield user.save();
         const token = createToken(user);
+        console.log(token);
+        user.set("password", undefined, { strict: false }); //No muestre la password al crear
         res
             .status(200)
             .json({ auth: true, token, message: 'Usuario creado con éxito', user });

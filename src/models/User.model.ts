@@ -6,7 +6,7 @@ export interface User {
   email: string;
   name: string;
   password: string;
-  birthday?: Date;
+  birthday?: string;
   createdAt: Date;
   updatedAt: Date;
   weight?: number;
@@ -32,7 +32,7 @@ const updateUser = new Schema(
       required: true,
     },
     birthday: {
-      type: Date,
+      type: String,
       required: false,
     },
     weight: {

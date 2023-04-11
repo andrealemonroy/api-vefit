@@ -18,7 +18,7 @@ const updateUser = new mongoose_1.Schema({
         required: true,
     },
     birthday: {
-        type: Date,
+        type: String,
         required: false,
     },
     weight: {
