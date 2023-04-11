@@ -8,7 +8,7 @@ const categoriesRouter = Router()
 categoriesRouter.get('/category', categoriesController.getCategory);
 categoriesRouter.post('/category', categoriesController.createCategory);
 categoriesRouter.get('/categoryProduct', categoriesController.getCategoryByIngredients);
-
+categoriesRouter.put("/category/:id", categoriesController.updateCategry);
 
 
 export default categoriesRouter

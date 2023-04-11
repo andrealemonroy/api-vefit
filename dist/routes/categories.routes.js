@@ -29,5 +29,6 @@ const categoriesRouter = (0, express_1.Router)();
 categoriesRouter.get('/category', categoriesController.getCategory);
 categoriesRouter.post('/category', categoriesController.createCategory);
 categoriesRouter.get('/categoryProduct', categoriesController.getCategoryByIngredients);
+categoriesRouter.put("/category/:id", categoriesController.updateCategry);
 exports.default = categoriesRouter;
 //# sourceMappingURL=categories.routes.js.map
