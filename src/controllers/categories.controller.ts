@@ -40,3 +40,10 @@ export const getCategoryByIngredients = async (req: any, res: any) => {
       .json({ message: 'Error al obtener la categoría de ingredientes' });
   }
 };
+
+export const updateCategry = async (req: any, res: any): Promise<Response> => {
+  const category = await Categories.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+  return res.json(category);
+};
