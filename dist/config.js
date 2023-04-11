@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-require('dotenv').config();
+const dotenv_1 = require("dotenv");
+(0, dotenv_1.config)();
 exports.default = {
     jwtSecret: process.env.JWT_SECRET || "somesecrettoken",
     PORT: process.env.PORT,

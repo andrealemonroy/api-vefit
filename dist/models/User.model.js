@@ -15,7 +15,7 @@ const updateUser = new mongoose_1.Schema({
     },
     password: {
         type: String,
-        required: true,
+        required: false,
     },
     birthday: {
         type: Date,
@@ -32,6 +32,11 @@ const updateUser = new mongoose_1.Schema({
     diseases: {
         type: Array,
         required: false,
+    },
+    sub: {
+        type: String,
+        unique: true,
+        required: false
     }
 }, {
     timestamps: true,
