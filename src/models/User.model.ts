@@ -1,7 +1,7 @@
 import { model, Schema, Document } from 'mongoose';
 import { IDisease } from './Disease.model';
 
-export interface User {
+export interface UserI {
   _id: string;
   email: string;
   name: string;
@@ -12,6 +12,7 @@ export interface User {
   weight?: number;
   height?: number;
   diseases?: IDisease[];
+  sub: string
 }
 
 const updateUser = new Schema(
@@ -29,7 +30,7 @@ const updateUser = new Schema(
     },
     password: {
       type: String,
-      required: true,
+      required: false,
     },
     birthday: {
       type: Date,
@@ -46,11 +47,17 @@ const updateUser = new Schema(
     diseases: {
       type: Array,
       required: false,
-    }
+    },
+    sub:{
+      type: String,
+      unique:true,
+      required:false
+    },
+    
   },
   {
     timestamps: true,
   }
 );
 
-export default model<User & Document>('User', updateUser);
+export default model<UserI & Document>('User', updateUser);
