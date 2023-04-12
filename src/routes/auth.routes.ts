@@ -9,9 +9,9 @@ authRouter.get("/login", authController.login);
 
 authRouter.get("/callback", authController.callback);
 
-//authRouter.post("/signup", authController.signUp);
+// authRouter.post("/signup", authController.signUp);
 
-//authRouter.post("/signin", authController.adminSignIn);
+// authRouter.post("/signin", authController.adminSignIn);
 
 authRouter.get("/profile",ensureAuthenticated, authController.profile);
 

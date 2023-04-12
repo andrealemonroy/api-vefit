@@ -1,7 +1,7 @@
 import { model, Schema, Document } from 'mongoose';
 import { IDisease } from './Disease.model';
 
-export interface UserI  {
+export interface UserI {
   _id: string;
   email: string;
   name: string;
@@ -52,7 +52,8 @@ const updateUser = new Schema(
       type: String,
       unique:true,
       required:false
-    }
+    },
+    
   },
   {
     timestamps: true,

@@ -37,7 +37,7 @@ const updateUser = new mongoose_1.Schema({
         type: String,
         unique: true,
         required: false
-    }
+    },
 }, {
     timestamps: true,
 });

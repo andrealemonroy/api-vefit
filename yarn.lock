@@ -1519,23 +1519,6 @@ express-jwt@*:
     express-unless "^2.1.3"
     jsonwebtoken "^9.0.0"
 
-express-openid-connect@^2.13.0:
-  version "2.13.0"
-  resolved "https://registry.npmjs.org/express-openid-connect/-/express-openid-connect-2.13.0.tgz"
-  integrity sha512-bP0bK7xFTaDQ8IVdxkN0KhslsC+cW65xVkncROfs5cba7bXUBn+HuPIMPUJzCAGG2dfT/KLEMd01PmCYc0Rp8g==
-  dependencies:
-    base64url "^3.0.1"
-    clone "^2.1.2"
-    cookie "^0.5.0"
-    debug "^4.3.4"
-    futoin-hkdf "^1.5.1"
-    http-errors "^1.8.1"
-    joi "^17.7.0"
-    jose "^2.0.6"
-    on-headers "^1.0.2"
-    openid-client "^4.9.1"
-    url-join "^4.0.1"
-
 express-session@^1.17.3:
   version "1.17.3"
   resolved "https://registry.npmjs.org/express-session/-/express-session-1.17.3.tgz"
@@ -2272,13 +2255,6 @@ passport-auth0@^1.4.3:
     passport-oauth "^1.0.0"
     passport-oauth2 "^1.6.0"
 
-passport-local@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/passport-local/-/passport-local-1.0.0.tgz"
-  integrity sha512-9wCE6qKznvf9mQYYbgJ3sVOHmCWoUNMVFoZzNoznmISbhnNNPhN9xfY3sLmScHMetEJeoY7CXwfhCe7argfQow==
-  dependencies:
-    passport-strategy "1.x.x"
-
 passport-oauth@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/passport-oauth/-/passport-oauth-1.0.0.tgz"
@@ -2296,7 +2272,7 @@ passport-oauth1@1.x.x:
     passport-strategy "1.x.x"
     utils-merge "1.x.x"
 
-passport-oauth2@^1.6.0, passport-oauth2@^1.7.0, passport-oauth2@1.x.x:
+passport-oauth2@^1.6.0, passport-oauth2@1.x.x:
   version "1.7.0"
   resolved "https://registry.npmjs.org/passport-oauth2/-/passport-oauth2-1.7.0.tgz"
   integrity sha512-j2gf34szdTF2Onw3+76alNnaAExlUmHvkc7cL+cmaS5NzHzDP/BvFHJruueQ9XAeNOdpI+CH+PWid8RA7KCwAQ==

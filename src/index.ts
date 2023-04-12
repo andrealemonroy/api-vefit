@@ -68,4 +68,3 @@ app.use(alimentsRouter);
 app.use(medicalReportRouter);
 app.use(healthyFoodsRouter);
 app.use(ingredientsRouter);
-
