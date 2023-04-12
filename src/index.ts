@@ -9,9 +9,37 @@ import medicalReportRouter from './routes/medicalReports.routes';
 import healthyFoodsRouter from './routes/healthyFoods.routes';
 import ingredientsRouter from './routes/ingredients.routes';
 import categoriesRouter from './routes/categories.routes';
+import { serializarUser, deserializeUser, configPassport } from "./middleware/passportConfig";
+import passport from "passport";
+import session from "express-session";
+
+serializarUser; // serializa usuario de passport
+deserializeUser; // deserializa usuario de passport
+configPassport;
+
+
 import webinarRouter from   './routes/webinars.routes'
+
 connectDB()
+
 const app = express()
+const HOUR_IN_MS = 36000;
+
+
+app.use(
+   session({
+      secret: process.env.JWT_SECRET || "secret-key",
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+         secure: false, // solo permitir cookies en conexiones HTTPS
+         httpOnly: true, // evitar acceso desde el lado del cliente
+         maxAge: HOUR_IN_MS, // tiempo de expiración de la cookie
+      },
+   })
+);
+
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -31,7 +59,8 @@ app.use(
         allowedHeaders: ['Content-Type', 'Authorization'],
     })
 )
-
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(authRouter)
 app.use(userRouter)
 app.use(diseasesRouter)

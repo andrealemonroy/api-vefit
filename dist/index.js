@@ -14,9 +14,28 @@ const medicalReports_routes_1 = __importDefault(require("./routes/medicalReports
 const healthyFoods_routes_1 = __importDefault(require("./routes/healthyFoods.routes"));
 const ingredients_routes_1 = __importDefault(require("./routes/ingredients.routes"));
 const categories_routes_1 = __importDefault(require("./routes/categories.routes"));
+const passportConfig_1 = require("./middleware/passportConfig");
+const passport_1 = __importDefault(require("passport"));
+const express_session_1 = __importDefault(require("express-session"));
+passportConfig_1.serializarUser; // serializa usuario de passport
+passportConfig_1.deserializeUser; // deserializa usuario de passport
+passportConfig_1.configPassport;
+
 const webinars_routes_1 = __importDefault(require("./routes/webinars.routes"));
+
 (0, database_1.connectDB)();
 const app = (0, express_1.default)();
+const HOUR_IN_MS = 36000;
+app.use((0, express_session_1.default)({
+    secret: process.env.JWT_SECRET || "secret-key",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false,
+        httpOnly: true,
+        maxAge: HOUR_IN_MS, // tiempo de expiración de la cookie
+    },
+}));
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
@@ -31,6 +50,8 @@ app.use((0, cors_1.default)({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+app.use(passport_1.default.initialize());
+app.use(passport_1.default.session());
 app.use(auth_routes_1.default);
 app.use(users_routes_1.default);
 app.use(diseases_routes_1.default);
