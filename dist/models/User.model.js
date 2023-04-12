@@ -32,7 +32,19 @@ const updateUser = new mongoose_1.Schema({
     diseases: {
         type: Array,
         required: false,
-    }
+    },
+    termsAndConditions: {
+        type: Boolean,
+        required: true,
+    },
+    privacyPolicy: {
+        type: Boolean,
+        required: true,
+    },
+    token: {
+        type: String,
+        required: false,
+    },
 }, {
     timestamps: true,
 });

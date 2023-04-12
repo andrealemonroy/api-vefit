@@ -12,6 +12,9 @@ export interface User {
   weight?: number;
   height?: number;
   diseases?: IDisease[];
+  termsAndConditions:boolean;
+  privacyPolicy:boolean;
+  token:string;
 }
 
 const updateUser = new Schema(
@@ -46,7 +49,19 @@ const updateUser = new Schema(
     diseases: {
       type: Array,
       required: false,
-    }
+    },
+    termsAndConditions: {
+      type: Boolean,
+      required: true,
+    },
+    privacyPolicy: {
+      type: Boolean,
+      required: true,
+    },
+    token: {
+      type: String,
+      required: false,
+    },
   },
   {
     timestamps: true,

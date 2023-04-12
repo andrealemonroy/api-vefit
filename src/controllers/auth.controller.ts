@@ -121,7 +121,7 @@ const signUp = async (req: any, res: any) => {
     if (existingUser) {
       return res.status(400).send('Ya existe un usuario con ese email');
     }
-    console.log(req.body)
+    // console.log(req.body)
     const user = new User({
       name,
       email,
@@ -131,10 +131,11 @@ const signUp = async (req: any, res: any) => {
       height,
       diseases,
       termsAndConditions,
-      privacyPolicy,
+      privacyPolicy
     });
-    await user.save();
     const token = createToken(user);
+    user.token = token;
+    await user.save();
     console.log(token)
     user.set("password", undefined, { strict: false }); //No muestre la password al crear
     res

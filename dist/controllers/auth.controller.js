@@ -122,7 +122,7 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (existingUser) {
             return res.status(400).send('Ya existe un usuario con ese email');
         }
-        console.log(req.body);
+        // console.log(req.body)
         const user = new User_model_1.default({
             name,
             email,
@@ -132,10 +132,11 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             height,
             diseases,
             termsAndConditions,
-            privacyPolicy,
+            privacyPolicy
         });
-        yield user.save();
         const token = createToken(user);
+        user.token = token;
+        yield user.save();
         console.log(token);
         user.set("password", undefined, { strict: false }); //No muestre la password al crear
         res
