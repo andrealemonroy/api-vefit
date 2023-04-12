@@ -24,11 +24,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const categoriesController = __importStar(require("../controllers/categories.controller"));
-const categoriesRouter = (0, express_1.Router)();
-categoriesRouter.get('/category', categoriesController.getCategory);
-categoriesRouter.post('/category', categoriesController.createCategory);
-categoriesRouter.get('/categoryProduct', categoriesController.getCategoryByIngredients);
-categoriesRouter.put("/category/:id", categoriesController.updateCategry);
-exports.default = categoriesRouter;
-//# sourceMappingURL=categories.routes.js.map
+const Webinars = __importStar(require("../controllers/webinars.controller"));
+const webinarRouter = (0, express_1.Router)();
+webinarRouter.get('/webinar', Webinars.getWebinars);
+webinarRouter.get('/webinar/:id', Webinars.getWebinar);
+webinarRouter.post('/webinar', Webinars.postWebinar);
+webinarRouter.put('/webinar/:id', Webinars.putWebinar);
+exports.default = webinarRouter;
+//# sourceMappingURL=webinars.routes.js.map

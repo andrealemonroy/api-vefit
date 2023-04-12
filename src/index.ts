@@ -17,6 +17,9 @@ serializarUser; // serializa usuario de passport
 deserializeUser; // deserializa usuario de passport
 configPassport;
 
+
+import webinarRouter from   './routes/webinars.routes'
+
 connectDB()
 
 const app = express()
@@ -66,6 +69,7 @@ app.use(medicalReportRouter)
 app.use(healthyFoodsRouter)
 app.use(ingredientsRouter)
 app.use(categoriesRouter)
+app.use(webinarRouter)
 
 app.listen(port, () => {
   return console.log(`Server is listening on ${port}`)

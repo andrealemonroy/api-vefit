@@ -20,6 +20,9 @@ const express_session_1 = __importDefault(require("express-session"));
 passportConfig_1.serializarUser; // serializa usuario de passport
 passportConfig_1.deserializeUser; // deserializa usuario de passport
 passportConfig_1.configPassport;
+
+const webinars_routes_1 = __importDefault(require("./routes/webinars.routes"));
+
 (0, database_1.connectDB)();
 const app = (0, express_1.default)();
 const HOUR_IN_MS = 36000;
@@ -57,6 +60,7 @@ app.use(medicalReports_routes_1.default);
 app.use(healthyFoods_routes_1.default);
 app.use(ingredients_routes_1.default);
 app.use(categories_routes_1.default);
+app.use(webinars_routes_1.default);
 app.listen(port, () => {
     return console.log(`Server is listening on ${port}`);
 });
