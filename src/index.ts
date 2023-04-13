@@ -9,6 +9,7 @@ import medicalReportRouter from './routes/medicalReports.routes';
 import healthyFoodsRouter from './routes/healthyFoods.routes';
 import ingredientsRouter from './routes/ingredients.routes';
 import categoriesRouter from './routes/categories.routes';
+import userCapa1 from './routes/userCapa1.routes';
 import { serializarUser, deserializeUser, configPassport } from "./middleware/passportConfig";
 import passport from "passport";
 import session from "express-session";
@@ -70,6 +71,7 @@ app.use(healthyFoodsRouter)
 app.use(ingredientsRouter)
 app.use(categoriesRouter)
 app.use(webinarRouter)
+app.use(userCapa1)
 
 app.listen(port, () => {
   return console.log(`Server is listening on ${port}`)
