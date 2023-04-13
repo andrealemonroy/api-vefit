@@ -30,5 +30,6 @@ categoriesRouter.get('/category', categoriesController.getCategory);
 categoriesRouter.post('/category', categoriesController.createCategory);
 categoriesRouter.get('/categoryProduct', categoriesController.getCategoryByIngredients);
 categoriesRouter.put("/category/:id", categoriesController.updateCategry);
+categoriesRouter.delete("/category/:id", categoriesController.deleteCategory);
 exports.default = categoriesRouter;
 //# sourceMappingURL=categories.routes.js.map

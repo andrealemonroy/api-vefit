@@ -47,3 +47,10 @@ export const updateCategry = async (req: any, res: any): Promise<Response> => {
   });
   return res.json(category);
 };
+
+export const deleteCategory = async (req: any, res: any): Promise<Response> => {
+  const category = await Categories.findByIdAndDelete(req.params.id);
+  console.log(category);
+  return res.json(category);
+};
+
