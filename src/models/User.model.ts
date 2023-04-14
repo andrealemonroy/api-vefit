@@ -1,7 +1,7 @@
 import { model, Schema, Document } from 'mongoose';
 import { IDisease } from './Disease.model';
 
-export interface UserI {
+export interface UserI extends Document {
   _id: string;
   email: string;
   name: string;

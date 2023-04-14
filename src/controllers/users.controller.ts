@@ -1,4 +1,5 @@
-import User from "../models/User.model";
+import User, { UserI } from "../models/User.model";
+import {Request,Response} from 'express'
 
 export const getUsers = async (req: any, res: any) => {
     const users = await User.find();
@@ -10,27 +11,47 @@ export const getUser = async (req: any, res: any) => {
     res.json(user);
 }
 
-export const register = async (req: any, res: any) => {
-    const { name, email, password } = req.body;
-    const validator = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+
+
+export const updateUser = async (req: Request, res: Response): Promise<Response<UserI, Record<string, any>>>=>{
+    const {id}= req.params //capturo el id del usuario de la URL
+    try {
+        const user : UserI = await User.findById(id); // busca si el usuario existe en la base de datos
+
+        if (!user) {
+          return res.status(404).send('User not found');
+        }
+        const userUpdate : UserI = await User.findByIdAndUpdate( {_id : id}, req.body,{new: true}) // busca y actualiza al usuario en la base de datos devuelve el usuario actualizado
+        
+        return res.status(200).json(userUpdate);
+    } catch (error) {
+        console.log(error.message);
+        throw new Error(error.message);
+    }
+}
+
+export const updateDiseases = async (req: Request, res: Response): Promise<Response<UserI,Record<string, any>>>=>{
+    const {id}= req.params //capturo el id del usuario de la URL
+    const {disease}= req.body 
 
     try {
-        if(validator.test(email)){
-            const eMailVerification = await User.findOne({email});
-                if(eMailVerification){
-                    return res.status(400).send('El correo electrónico ya está en uso.');
-                } 
-            const users = await User.create({name, email, password});
-            return res.status(201).json(users);
+        const user : UserI = await User.findById({_id: id})
+        const diseasesIndex: number = user.diseases.indexOf(disease) 
+        console.log(diseasesIndex)
+        if(diseasesIndex === -1) {
+            return res.status(404).send('desease not found')
         }
+        user.diseases.splice(diseasesIndex,1) // elimina el indice requerido 
+        await user.save()
+        return res.status(200).json(user)
     } catch (error) {
-        console.log(error);
-        res.status(500).send('Error al Registarse');
+        throw new Error(error.message);
+        
     }
-    res.status(400).send('no es un email valido');
 }
 
 export const deleteUser = async (req: any, res: any) => {
     await User.findByIdAndDelete(req.params.id);
     res.json({ message: 'User deleted' });
   };
+

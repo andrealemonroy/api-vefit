@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUser = exports.register = exports.getUser = exports.getUsers = void 0;
+exports.deleteUser = exports.updateDiseases = exports.updateUser = exports.getUser = exports.getUsers = void 0;
 const User_model_1 = __importDefault(require("../models/User.model"));
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const users = yield User_model_1.default.find();
@@ -24,26 +24,41 @@ const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.json(user);
 });
 exports.getUser = getUser;
-const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, email, password } = req.body;
-    const validator = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params; //capturo el id del usuario de la URL
     try {
-        if (validator.test(email)) {
-            const eMailVerification = yield User_model_1.default.findOne({ email });
-            if (eMailVerification) {
-                return res.status(400).send('El correo electrónico ya está en uso.');
-            }
-            const users = yield User_model_1.default.create({ name, email, password });
-            return res.status(201).json(users);
+        const user = yield User_model_1.default.findById(id); // busca si el usuario existe en la base de datos
+        if (!user) {
+            return res.status(404).send('User not found');
         }
+        const userUpdate = yield User_model_1.default.findByIdAndUpdate({ _id: id }, req.body, { new: true }); // busca y actualiza al usuario en la base de datos devuelve el usuario actualizado
+        return res.status(200).json(userUpdate);
     }
     catch (error) {
-        console.log(error);
-        res.status(500).send('Error al Registarse');
+        console.log(error.message);
+        throw new Error(error.message);
     }
-    res.status(400).send('no es un email valido');
 });
-exports.register = register;
+exports.updateUser = updateUser;
+const updateDiseases = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params; //capturo el id del usuario de la URL
+    const { disease } = req.body;
+    try {
+        const user = yield User_model_1.default.findById({ _id: id });
+        const diseasesIndex = user.diseases.indexOf(disease);
+        console.log(diseasesIndex);
+        if (diseasesIndex === -1) {
+            return res.status(404).send('desease not found');
+        }
+        user.diseases.splice(diseasesIndex, 1); // elimina el indice requerido 
+        yield user.save();
+        return res.status(200).json(user);
+    }
+    catch (error) {
+        throw new Error(error.message);
+    }
+});
+exports.updateDiseases = updateDiseases;
 const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield User_model_1.default.findByIdAndDelete(req.params.id);
     res.json({ message: 'User deleted' });

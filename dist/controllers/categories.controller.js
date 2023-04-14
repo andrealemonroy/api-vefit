@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateCategry = exports.getCategoryByIngredients = exports.getCategory = exports.createCategory = void 0;
+exports.deleteCategory = exports.updateCategry = exports.getCategoryByIngredients = exports.getCategory = exports.createCategory = void 0;
 const Categories_model_1 = __importDefault(require("../models/Categories.model"));
 const Ingredient_model_1 = __importDefault(require("../models/Ingredient.model"));
 const createCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -62,4 +62,10 @@ const updateCategry = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     return res.json(category);
 });
 exports.updateCategry = updateCategry;
+const deleteCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const category = yield Categories_model_1.default.findByIdAndDelete(req.params.id);
+    console.log(category);
+    return res.json(category);
+});
+exports.deleteCategory = deleteCategory;
 //# sourceMappingURL=categories.controller.js.map
