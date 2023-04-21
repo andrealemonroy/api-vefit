@@ -1,16 +1,20 @@
-import express, { Request, Response } from 'express'
+import express, { Request, Response } from "express";
 import cors from "cors";
-import { connectDB } from './database';
-import userRouter from './routes/users.routes';
-import diseasesRouter from './routes/diseases.routes';
-import authRouter from './routes/auth.routes';
-import alimentsRouter from './routes/aliments.routes';
-import medicalReportRouter from './routes/medicalReports.routes';
-import healthyFoodsRouter from './routes/healthyFoods.routes';
-import ingredientsRouter from './routes/ingredients.routes';
-import categoriesRouter from './routes/categories.routes';
-import userCapa1 from './routes/userCapa1.routes';
-import { serializarUser, deserializeUser, configPassport } from "./middleware/passportConfig";
+import { connectDB } from "./database";
+import userRouter from "./routes/users.routes";
+
+import authRouter from "./routes/auth.routes";
+import alimentsRouter from "./routes/aliments.routes";
+import medicalReportRouter from "./routes/medicalReports.routes";
+import healthyFoodsRouter from "./routes/healthyFoods.routes";
+import ingredientsRouter from "./routes/ingredients.routes";
+import categoriesRouter from "./routes/categories.routes";
+
+import {
+   serializarUser,
+   deserializeUser,
+   configPassport,
+} from "./middleware/passportConfig";
 import passport from "passport";
 import session from "express-session";
 
@@ -18,14 +22,13 @@ serializarUser; // serializa usuario de passport
 deserializeUser; // deserializa usuario de passport
 configPassport;
 
+import webinarRouter from "./routes/webinars.routes";
+import profileRouter from "./routes/profile.routes";
 
-import webinarRouter from   './routes/webinars.routes'
+connectDB();
 
-connectDB()
-
-const app = express()
+const app = express();
 const HOUR_IN_MS = 36000;
-
 
 app.use(
    session({
@@ -40,39 +43,41 @@ app.use(
    })
 );
 
-
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-    
-const port = process.env.PORT || 8080
+
+const port = process.env.PORT || 8080;
 
 app.use((_req: Request, res: Response, next: any) => {
-    res.header('Access-Control-Allow-Origin', '*')
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-    next()
-})
+   res.header("Access-Control-Allow-Origin", "*");
+   res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+   );
+   next();
+});
 
 app.use(
-    cors({
-        origin: '*',
-        methods: ['GET', 'POST', 'PUT', 'DELETE'],
-        allowedHeaders: ['Content-Type', 'Authorization'],
-    })
-)
+   cors({
+      origin: "*",
+      methods: ["GET", "POST", "PUT", "DELETE"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+   })
+);
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(authRouter)
-app.use(userRouter)
-app.use(diseasesRouter)
-app.use(alimentsRouter)
-app.use(medicalReportRouter)
-app.use(healthyFoodsRouter)
-app.use(ingredientsRouter)
-app.use(categoriesRouter)
-app.use(webinarRouter)
-app.use(userCapa1)
+app.use(authRouter);
+app.use(userRouter);
+
+app.use(alimentsRouter);
+app.use(medicalReportRouter);
+app.use(healthyFoodsRouter);
+app.use(ingredientsRouter);
+app.use(categoriesRouter);
+app.use(webinarRouter);
+app.use(profileRouter);
 
 app.listen(port, () => {
-  return console.log(`Server is listening on ${port}`)
-})
+   return console.log(`Server is listening on ${port}`);
+});

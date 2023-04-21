@@ -14,10 +14,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.findUserByEmail = exports.createToken = void 0;
 const SignUpUser_model_1 = __importDefault(require("../models/SignUpUser.model"));
-const User_model_1 = __importDefault(require("../models/User.model"));
 const passport_1 = __importDefault(require("passport"));
 const qs_1 = __importDefault(require("qs"));
 const passportConfig_1 = require("../middleware/passportConfig");
+const UserCapa1_model_1 = __importDefault(require("../models/UserCapa1.model"));
+const UserCapa1_model_2 = __importDefault(require("../models/UserCapa1.model"));
 require("dotenv").config();
 const { AUTH0_DOMAIN, AUTH0_CLIENT_ID, LOCAL_HOST } = process.env;
 passportConfig_1.configPassport; // configuracion passport
@@ -44,7 +45,7 @@ const findAdminByEmail = (email) => __awaiter(void 0, void 0, void 0, function* 
     return yield SignUpUser_model_1.default.findOne({ email });
 });
 const findUserByEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield User_model_1.default.findOne({ email: email });
+    return yield UserCapa1_model_2.default.findOne({ email: email });
 });
 exports.findUserByEmail = findUserByEmail;
 const adminSignIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -91,14 +92,14 @@ const callback = (req, res, next) => {
             if (err) {
                 return next(err);
             }
-            res.redirect("/profile");
+            res.redirect("/profileTem");
         });
     })(req, res, next);
 };
 const profile = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = req.user;
     try {
-        const user = yield User_model_1.default.findOne({ email: email });
+        const user = yield UserCapa1_model_1.default.findOne({ email: email });
         return res.json(user);
     }
     catch (error) {
@@ -123,7 +124,7 @@ const logout = (req, res, next) => {
     });
 };
 const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield User_model_1.default.findById(req.params.id);
+    const user = yield UserCapa1_model_1.default.findById(req.params.id);
     if (!user) {
         return res.status(404).send("No user found.");
     }
@@ -131,7 +132,7 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     res.status(200).json({ auth: true, token });
 });
 const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield User_model_1.default.findByIdAndDelete(req.userId);
+    const user = yield UserCapa1_model_1.default.findByIdAndDelete(req.userId);
     if (!user) {
         return res.status(404).send("No user found.");
     }
@@ -140,13 +141,11 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 const me = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const token = req.token;
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = yield User_model_1.default.findById(decoded.id);
+    const user = yield UserCapa1_model_1.default.findById(decoded.id);
     res.json(user);
 });
 exports.default = {
     adminSignIn,
-    //signIn,
-    //signUp,  
     logout,
     updateUser,
     deleteUser,

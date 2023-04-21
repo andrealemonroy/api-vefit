@@ -26,10 +26,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const medicalReportController = __importStar(require("../controllers/medicalReports.controller"));
 const medicalReportRouter = (0, express_1.Router)();
-medicalReportRouter.get('/medicalReports', medicalReportController.getMedicalReports);
-medicalReportRouter.get('/medicalReports/:id', medicalReportController.getMedicalReport);
-medicalReportRouter.post('/medicalReports', medicalReportController.createMedicalReport);
-medicalReportRouter.put('/medicalReports/:id', medicalReportController.updateMedicalReport);
-medicalReportRouter.delete('/medicalReports/:id', medicalReportController.deleteMedicalReport);
+medicalReportRouter.get("/medicalReports", medicalReportController.getMedicalReports);
+medicalReportRouter.get("/medicalReports/:id", medicalReportController.getMedicalReport);
+medicalReportRouter.post("/medicalReports", medicalReportController.createMedicalReport);
+medicalReportRouter.put("/medicalReports/:id", medicalReportController.updateMedicalReport);
+medicalReportRouter.delete("/medicalReports/:id", medicalReportController.deleteMedicalReport);
 exports.default = medicalReportRouter;
 //# sourceMappingURL=medicalReports.routes.js.map

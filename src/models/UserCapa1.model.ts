@@ -1,12 +1,16 @@
 import { model, Schema, Document } from 'mongoose';
+import { ProfileI } from './Profile.model';
 
-export interface UserCapa1 {
+
+export interface UserCapa1I extends Document  {
   _id: string;
   email: string;
   name: string;
   password: string;
+  sub: string;
   termsAndConditions: Boolean;
   privacyPolicy: Boolean;
+  profile: ProfileI;
 }
 
 const updateUser = new Schema(
@@ -29,11 +33,23 @@ const updateUser = new Schema(
     termsAndConditions: {
       type: Boolean,
       required: true,
+      default: true,
     },
     privacyPolicy: {
       type: Boolean,
       required: true,
+      default: true,
     },
+    sub:{
+      type: String,
+      unique: true,
+      require: false,
+    },
+    profile:{
+      type: Schema.Types.ObjectId,
+      ref: 'Profile',     
+      
+    }
    
     
   },
@@ -42,4 +58,4 @@ const updateUser = new Schema(
   }
 );
 
-export default model<UserCapa1 & Document>('UserCapa1', updateUser);
+export default model<UserCapa1I & Document>('UserCapa1', updateUser);

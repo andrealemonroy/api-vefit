@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deserializeUser = exports.serializarUser = exports.configPassport = void 0;
 const passport_1 = __importDefault(require("passport"));
-const User_model_1 = __importDefault(require("../models/User.model"));
+const UserCapa1_model_1 = __importDefault(require("../models/UserCapa1.model"));
 const passport_auth0_1 = require("passport-auth0");
 require('dotenv').config();
 const { AUTH0_DOMAIN, AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET } = process.env;
@@ -28,9 +28,10 @@ exports.configPassport = passport_1.default.use("auth0", new passport_auth0_1.St
 // aqui se manejan los datos del usuario y se almasenan en la ase de datos
 function (accessToken, refreshToken, extraParams, profile, done) {
     return __awaiter(this, void 0, void 0, function* () {
-        let user = (yield User_model_1.default.findOne({ sub: profile.id })) || (yield User_model_1.default.findOne({ email: profile.emails[0].value }));
+        let user = (yield UserCapa1_model_1.default.findOne({ sub: profile.id })) || (yield UserCapa1_model_1.default.findOne({ email: profile.emails[0].value }));
         if (!user) {
-            const userRegistre = new User_model_1.default({
+            console.log('estoy aqui', profile);
+            const userRegistre = new UserCapa1_model_1.default({
                 name: profile.displayName,
                 email: profile.emails[0].value,
                 sub: profile.id,
@@ -44,7 +45,7 @@ exports.serializarUser = passport_1.default.serializeUser(function (user, done) 
     done(null, user.id);
 });
 exports.deserializeUser = passport_1.default.deserializeUser(function (id, done) {
-    User_model_1.default.findOne({ sub: id }, (err, user) => {
+    UserCapa1_model_1.default.findOne({ sub: id }, (err, user) => {
         done(err, user);
     });
 });

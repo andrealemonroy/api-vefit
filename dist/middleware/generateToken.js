@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.encryptPassword = exports.generateToken = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
+// import UserCapa1Model ,{ UserI } from "../models/User.model";
 const generateToken = (user) => {
     const token = jsonwebtoken_1.default.sign({
         sub: user._id,

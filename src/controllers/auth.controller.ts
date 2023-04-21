@@ -1,12 +1,12 @@
-
 import SignUpUser from "../models/SignUpUser.model";
-import User, { UserI } from "../models/User.model";
- import { handleHtppError } from "../middleware/hadleHtppError";
+import { handleHtppError } from "../middleware/hadleHtppError";
 import { encrypt, compare } from "../middleware/handlePassword";
 import passport from "passport";
 import { Request, Response } from "express";
 import qs from "qs";
 import { configPassport } from "../middleware/passportConfig";
+import UserCapa1, { UserCapa1I } from "../models/UserCapa1.model";
+import UserCapa1Model from "../models/UserCapa1.model";
 require("dotenv").config();
 const { AUTH0_DOMAIN, AUTH0_CLIENT_ID, LOCAL_HOST } = process.env;
 configPassport; // configuracion passport
@@ -20,7 +20,7 @@ export const createToken = (user: any) => {
    });
 };
 
-const verifyToken = (req: any, res: any, next: any) => {
+const verifyToken = (req: any, res: Response, next: any) => {
    const token = req.headers["x-access-token"];
 
    if (!token) {
@@ -39,10 +39,10 @@ const findAdminByEmail = async (email: string) => {
 };
 
 export const findUserByEmail = async (email: string) => {
-   return await User.findOne({ email: email });
+   return await UserCapa1Model.findOne({ email: email });
 };
 
-const adminSignIn = async (req: any, res: any) => {
+const adminSignIn = async (req: Request, res: Response) => {
    if (!req.body.email || !req.body.password) {
       return res.status(400).send("El email y la contraseña son requeridos");
    }
@@ -72,7 +72,6 @@ const adminSignIn = async (req: any, res: any) => {
    }
 };
 
-   
 const login = passport.authenticate("auth0", { scope: "openid profile email" }); // usa la estartegia definida para el login definida en passport
 
 const callback = (req: Request, res: Response, next: any) => {
@@ -91,20 +90,19 @@ const callback = (req: Request, res: Response, next: any) => {
             return next(err);
          }
 
-         res.redirect("/profile");
+         res.redirect("/profileTem");
       });
    })(req, res, next);
 };
 
-const profile = async (req: any, res:any, next: any) => {
-   const {email}= req.user;
+const profile = async (req: any, res: any, next: any) => {
+   const { email } = req.user;
    try {
-      
-      const user: UserI = await User.findOne({email: email})
+      const user: UserCapa1I = await UserCapa1.findOne({ email: email });
       return res.json(user);
    } catch (error) {
       console.log(error.message);
-      res.status(500).json({message: error.message});
+      res.status(500).json({ message: error.message });
    }
 };
 
@@ -130,7 +128,7 @@ const logout = (req: any, res: any, next: (arg0: any) => any) => {
 };
 
 const updateUser = async (req: any, res: any) => {
-   const user = await User.findById(req.params.id);
+   const user = await UserCapa1.findById(req.params.id);
 
    if (!user) {
       return res.status(404).send("No user found.");
@@ -140,7 +138,7 @@ const updateUser = async (req: any, res: any) => {
 };
 
 const deleteUser = async (req: any, res: any) => {
-   const user = await User.findByIdAndDelete(req.userId);
+   const user = await UserCapa1.findByIdAndDelete(req.userId);
    if (!user) {
       return res.status(404).send("No user found.");
    }
@@ -150,14 +148,12 @@ const deleteUser = async (req: any, res: any) => {
 const me = async (req: { token: string }, res: any) => {
    const token = req.token;
    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-   const user = await User.findById(decoded.id);
+   const user = await UserCapa1.findById(decoded.id);
    res.json(user);
 };
 
 export default {
-   adminSignIn,
-   //signIn,
-   //signUp,  
+   adminSignIn,   
    logout,
    updateUser,
    deleteUser,
