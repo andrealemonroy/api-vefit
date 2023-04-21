@@ -1,4 +1,4 @@
-import MedicalReport from '../models/medicalReport.model';
+import MedicalReport from '../models/MedicalReport.model';
 
 export const getMedicalReports = async (req: any, res: any) => {
   const medicalReports = await MedicalReport.find();

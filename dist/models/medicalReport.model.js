@@ -44,4 +44,4 @@ const MedicalReportSchema = new mongoose_1.Schema({
     },
 });
 exports.default = (0, mongoose_1.model)('MedicalReport', MedicalReportSchema);
-//# sourceMappingURL=medicalReport.model.js.map
+//# sourceMappingURL=MedicalReport.model.js.map

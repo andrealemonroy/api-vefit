@@ -1,5 +1,6 @@
 import passport from "passport";
-import User from "../models/User.model";
+
+import UserCapa1, { UserCapa1I } from "../models/UserCapa1.model";
 import { Strategy as Auth0Strategy } from "passport-auth0";
 require('dotenv').config()
 const{AUTH0_DOMAIN,AUTH0_CLIENT_ID,AUTH0_CLIENT_SECRET }= process.env
@@ -26,10 +27,11 @@ export const configPassport = passport.use(
          profile: any,
          done: any
       ) {
-         let user = await User.findOne({ sub: profile.id}) || await User.findOne({ email: profile.emails[0].value });
+         let user = await UserCapa1.findOne({ sub: profile.id}) || await UserCapa1.findOne({ email: profile.emails[0].value });
          
          if(!user){
-            const userRegistre = new User({
+            console.log('estoy aqui', profile)
+            const userRegistre = new UserCapa1({
                name: profile.displayName,
                email: profile.emails[0].value,
                sub : profile.id,
@@ -43,13 +45,13 @@ export const configPassport = passport.use(
    )
 );
 
-export const serializarUser = passport.serializeUser(function (user: any, done: any) {  
+export const serializarUser = passport.serializeUser(function (user: UserCapa1I, done: any) {  
    
    done(null, user.id);
 });
 
-export const deserializeUser = passport.deserializeUser(function (id: any, done: any) {
-   User.findOne({ sub: id }, (err: any, user: any) => {
+export const deserializeUser = passport.deserializeUser(function (id: string, done: any) {
+   UserCapa1.findOne({ sub: id }, (err: any, user: any) => {
       
       done(err, user);
    });

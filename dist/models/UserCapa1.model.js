@@ -20,11 +20,22 @@ const updateUser = new mongoose_1.Schema({
     termsAndConditions: {
         type: Boolean,
         required: true,
+        default: true,
     },
     privacyPolicy: {
         type: Boolean,
         required: true,
+        default: true,
     },
+    sub: {
+        type: String,
+        unique: true,
+        require: false,
+    },
+    profile: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'Profile',
+    }
 }, {
     timestamps: true,
 });

@@ -1,27 +1,27 @@
-import { Router } from 'express';
+import { Router } from "express";
 import * as medicalReportController from "../controllers/medicalReports.controller";
 
 const medicalReportRouter = Router();
 
 medicalReportRouter.get(
-  '/medicalReports',
-  medicalReportController.getMedicalReports
+   "/medicalReports",
+   medicalReportController.getMedicalReports
 );
 medicalReportRouter.get(
-  '/medicalReports/:id',
-  medicalReportController.getMedicalReport
+   "/medicalReports/:id",
+   medicalReportController.getMedicalReport
 );
 medicalReportRouter.post(
-  '/medicalReports',
-  medicalReportController.createMedicalReport
+   "/medicalReports",
+   medicalReportController.createMedicalReport
 );
 medicalReportRouter.put(
-  '/medicalReports/:id',
-  medicalReportController.updateMedicalReport
+   "/medicalReports/:id",
+   medicalReportController.updateMedicalReport
 );
 medicalReportRouter.delete(
-  '/medicalReports/:id',
-  medicalReportController.deleteMedicalReport
+   "/medicalReports/:id",
+   medicalReportController.deleteMedicalReport
 );
 
 export default medicalReportRouter;
