@@ -123,21 +123,6 @@ const logout = (req, res, next) => {
         });
     });
 };
-const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield UserCapa1_model_1.default.findById(req.params.id);
-    if (!user) {
-        return res.status(404).send("No user found.");
-    }
-    const token = (0, exports.createToken)(user);
-    res.status(200).json({ auth: true, token });
-});
-const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield UserCapa1_model_1.default.findByIdAndDelete(req.userId);
-    if (!user) {
-        return res.status(404).send("No user found.");
-    }
-    res.status(200).json({ auth: false, token: null });
-});
 const me = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const token = req.token;
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -147,8 +132,6 @@ const me = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.default = {
     adminSignIn,
     logout,
-    updateUser,
-    deleteUser,
     verifyToken,
     me,
     callback,
