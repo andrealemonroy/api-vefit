@@ -1,6 +1,6 @@
 import { Document, Schema, model } from 'mongoose';
 
-export interface IHealthyFoods extends Document {
+export interface IRecipeModel extends Document {
   nameFood: string;
   ingredients: [];
   preparation: string;
@@ -8,7 +8,7 @@ export interface IHealthyFoods extends Document {
   updatedAt: Date;
 }
 
-const HealthyFoodsSchema = new Schema({
+const RecipeSchema = new Schema({
   nameFood: {
     type: String,
     required: true,
@@ -31,4 +31,4 @@ const HealthyFoodsSchema = new Schema({
   },
 });
 
-export default model<IHealthyFoods>('HealthyFoods', HealthyFoodsSchema);
+export default model<IRecipeModel>('Recipes', RecipeSchema);

@@ -6,7 +6,7 @@ import userRouter from "./routes/users.routes";
 import authRouter from "./routes/auth.routes";
 import alimentsRouter from "./routes/aliments.routes";
 import medicalReportRouter from "./routes/medicalReports.routes";
-import healthyFoodsRouter from "./routes/healthyFoods.routes";
+import recipesRouter from "./routes/recipes.routes";
 import ingredientsRouter from "./routes/ingredients.routes";
 import categoriesRouter from "./routes/categories.routes";
 
@@ -72,7 +72,7 @@ app.use(userRouter);
 
 app.use(alimentsRouter);
 app.use(medicalReportRouter);
-app.use(healthyFoodsRouter);
+app.use(recipesRouter);
 app.use(ingredientsRouter);
 app.use(categoriesRouter);
 app.use(webinarRouter);

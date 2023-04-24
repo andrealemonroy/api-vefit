@@ -24,12 +24,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const healthyFoodsController = __importStar(require("../controllers/HealthyFoods.controller"));
-const healthyFoodsRouter = (0, express_1.Router)();
-healthyFoodsRouter.get('/healthyFoods', healthyFoodsController.getHealthyFoods);
-healthyFoodsRouter.get('/healthyFoods/:id', healthyFoodsController.getHealthyFoods);
-healthyFoodsRouter.post('/healthyFoods', healthyFoodsController.createHealthyFoods);
-healthyFoodsRouter.put('/healthyFoods/:id', healthyFoodsController.updateHealthyFoods);
-healthyFoodsRouter.delete('/healthyFoods/:id', healthyFoodsController.deleteHealthyFoods);
-exports.default = healthyFoodsRouter;
-//# sourceMappingURL=healthyFoods.routes.js.map
+const recipesController = __importStar(require("../controllers/recipes.controller"));
+const recipesRouter = (0, express_1.Router)();
+recipesRouter.get('/recipes', recipesController.getRecipes);
+recipesRouter.get('/recipes/:id', recipesController.getRecipeById);
+recipesRouter.post('/recipes', recipesController.createRecipe);
+recipesRouter.put('/recipes/:id', recipesController.updateRecipe);
+recipesRouter.delete('/recipes/:id', recipesController.deleteRecipe);
+exports.default = recipesRouter;
+//# sourceMappingURL=recipes.routes.js.map
