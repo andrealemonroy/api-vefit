@@ -7,6 +7,8 @@ const profileRouter = Router();
 
 
 profileRouter.post("/users/:idUser/profile", profileController.createProfile)
+profileRouter.put("/users/:idUser/profile", profileController.updateProfile)
+profileRouter.put("/users/:idUser/profile/desease", profileController.delteDesease)
 
 
 

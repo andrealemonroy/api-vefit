@@ -14,10 +14,16 @@ const ProfileSchema = new mongoose_1.Schema({
         type: Number,
         required: false,
     },
-    diseases: {
-        type: Array,
-        default: []
-    },
+    diseases: [{
+            name: {
+                type: String,
+                unique: true,
+                lowercase: true,
+            },
+            description: {
+                type: String,
+            },
+        }],
     complete: {
         type: Boolean,
         default: false,
