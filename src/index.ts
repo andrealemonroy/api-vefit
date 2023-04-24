@@ -28,6 +28,7 @@ import profileRouter from "./routes/profile.routes";
 connectDB();
 
 const app = express();
+app.use(cors())
 const HOUR_IN_MS = 36000;
 
 app.use(
@@ -43,7 +44,6 @@ app.use(
    })
 );
 
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
