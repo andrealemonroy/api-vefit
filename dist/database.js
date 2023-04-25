@@ -18,6 +18,7 @@ const config_1 = __importDefault(require("./config"));
 function connectDB() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            mongoose_1.default.set('strictQuery', true);
             const db = yield mongoose_1.default.connect(config_1.default.DB.URI || "");
             console.log("Database is connected to: ", db.connection.name);
         }

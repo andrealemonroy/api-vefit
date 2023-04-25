@@ -24,35 +24,35 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const alimentController = __importStar(require("../controllers/aliments.controller"));
-const alimentsRouter = (0, express_1.Router)();
-/**
-* @swagger
-* /aliments:
-*    get:
-*      tags:
-*        - aliments
-*      summary: "Listar alimentos"
-*      description: Este endpoint es para listar los alimentos totales.
-*      responses:
-*        '200':
-*          description: Retorna el objeto insertado en la coleccion.
-*        '422':
-*          description: Error de validacion.
-*/
-alimentsRouter.get("/aliments", alimentController.getAliments);
+const healthyFoodsController = __importStar(require("../controllers/healthyFoods.controller"));
+const healthyFoodsRouter = (0, express_1.Router)();
 /**
  * @swagger
- * /aliments/{id}:
+ * /healthyFoods:
  *    get:
  *      tags:
- *        - aliments
- *      summary: "Listar alimentos por ID"
- *      description: Este endpoint es para mostar los alimentos por ID.
+ *        - healthyFoods
+ *      summary: "Listar comidas saludables"
+ *      description: Este endpoint es para listar las comidas saludables totales.
+ *      responses:
+ *        '200':
+ *          description: Retorna el objeto insertado en la coleccion.
+ *        '422':
+ *          description: Error de validacion.
+ */
+healthyFoodsRouter.get('/healthyFoods', healthyFoodsController.getHealthyFoods);
+/**
+ * @swagger
+ * /healthyFoods/{id}:
+ *    get:
+ *      tags:
+ *        - healthyFoods
+ *      summary: "Listar healthy foods por ID"
+ *      description: Este endpoint es para mostar las healthy foods por ID.
  *      parameters:
  *        - name: id
  *          in: path
- *          description: ID de los alimentos
+ *          description: ID de las  healthy foods.
  *          required: true
  *          schema:
  *            type: string
@@ -63,39 +63,40 @@ alimentsRouter.get("/aliments", alimentController.getAliments);
  *        '422':
  *          description: Error de validacion.
  */
-alimentsRouter.get("/aliments/:id", alimentController.getAliment);
+healthyFoodsRouter.get('/healthyFoods/:id', healthyFoodsController.getHealthyFoods);
 /**
  * @swagger
- * /aliments:
+ * /healthyFoods:
  *    post:
  *      tags:
- *        - aliments
- *      summary: "Crear alimentos"
- *      description: Este endpoint es para crear alimentos.
+ *        - healthyFoods
+ *      summary: "Crear healthy foods"
+ *      description: Este endpoint es para crear healthy foods.
  *      requestBody:
  *          content:
  *            application/json:
  *              schema:
- *                $ref: "#/components/schemas/aliments"
+ *                $ref: "#/components/schemas/healthyFoods"
+ *
  *      responses:
  *        '200':
  *          description: Retorna el objeto insertado en la coleccion.
  *        '422':
  *          description: Error de validacion.
  */
-alimentsRouter.post("/aliments", alimentController.createAliment);
+healthyFoodsRouter.post('/healthyFoods', healthyFoodsController.createHealthyFoods);
 /**
  * @swagger
- * /aliments/{id}:
+ * /healthyFoods/{id}:
  *    put:
  *      tags:
- *        - aliments
- *      summary: "Editar alimentos"
- *      description: Este endpoint es para editar alimentos.
+ *        - healthyFoods
+ *      summary: "Editar healthy foods"
+ *      description: Este endpoint es para editar healthy foods.
  *      parameters:
  *        - name: id
  *          in: path
- *          description: ID de los alimentos
+ *          description: ID de healthy foods
  *          required: true
  *          schema:
  *            type: string
@@ -104,26 +105,26 @@ alimentsRouter.post("/aliments", alimentController.createAliment);
  *          content:
  *            application/json:
  *              schema:
- *                $ref: "#/components/schemas/aliments"
+ *                $ref: "#/components/schemas/healthyFoods"
  *      responses:
  *        '200':
  *          description: Retorna el objeto editado .
  *        '422':
  *          description: Error de validacion.
  */
-alimentsRouter.put("/aliments/:id", alimentController.updateAliment);
+healthyFoodsRouter.put('/healthyFoods/:id', healthyFoodsController.updateHealthyFoods);
 /**
  * @swagger
- * /aliments/{id}:
+ * /healthyFoods/{id}:
  *    delete:
  *      tags:
- *        - aliments
- *      summary: "Eliminar alimento"
- *      description: Este endpoint es para eliminar un alimento.
+ *        - healthyFoods
+ *      summary: "Eliminar healthy foods"
+ *      description: Este endpoint es para eliminar una healthy foods.
  *      parameters:
  *        - name: id
  *          in: path
- *          description: ID del alimento
+ *          description: ID de healthy foods
  *          required: true
  *          schema:
  *            type: string
@@ -134,6 +135,6 @@ alimentsRouter.put("/aliments/:id", alimentController.updateAliment);
  *        '422':
  *          description: Error de validacion.
  */
-alimentsRouter.delete("/aliments/:id", alimentController.deleteAliment);
-exports.default = alimentsRouter;
-//# sourceMappingURL=aliments.routes.js.map
+healthyFoodsRouter.delete('/healthyFoods/:id', healthyFoodsController.deleteHealthyFoods);
+exports.default = healthyFoodsRouter;
+//# sourceMappingURL=healthyFoods.routes.js.map

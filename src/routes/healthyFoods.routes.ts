@@ -1,38 +1,38 @@
 import { Router } from 'express';
-import * as medicalReportController from "../controllers/medicalReports.controller";
+import * as healthyFoodsController from "../controllers/healthyFoods.controller";
 
-const medicalReportRouter = Router();
+const healthyFoodsRouter = Router();
+
 /**
  * @swagger
- * /medicalReports:
+ * /healthyFoods:
  *    get:
  *      tags:
- *        - medicalReports
- *      summary: "Listar medicalReports"
- *      description: Este endpoint es para listar los reportes medicos totales. 
+ *        - healthyFoods
+ *      summary: "Listar comidas saludables"
+ *      description: Este endpoint es para listar las comidas saludables totales. 
  *      responses:
  *        '200':
  *          description: Retorna el objeto insertado en la coleccion.
  *        '422':
  *          description: Error de validacion.
  */
-medicalReportRouter.get(
-  '/medicalReports',
-  medicalReportController.getMedicalReports
-);
+
+
+healthyFoodsRouter.get('/healthyFoods', healthyFoodsController.getHealthyFoods);
 
 /** 
  * @swagger
- * /medicalReports/{id}:
+ * /healthyFoods/{id}:
  *    get:
  *      tags:
- *        - medicalReports
- *      summary: "Listar medicalReports por ID"
- *      description: Este endpoint es para mostar los reportes medicos por ID. 
+ *        - healthyFoods
+ *      summary: "Listar healthy foods por ID"
+ *      description: Este endpoint es para mostar las healthy foods por ID. 
  *      parameters:
  *        - name: id
  *          in: path
- *          description: ID de medicalReports
+ *          description: ID de las  healthy foods.
  *          required: true
  *          schema:
  *            type: string
@@ -44,24 +44,23 @@ medicalReportRouter.get(
  *          description: Error de validacion.
  */
 
-medicalReportRouter.get(
-  '/medicalReports/:id',
-  medicalReportController.getMedicalReport
-);
+
+healthyFoodsRouter.get('/healthyFoods/:id', healthyFoodsController.getHealthyFoods);
 
 /**
  * @swagger
- * /medicalReports:
+ * /healthyFoods:
  *    post:
  *      tags:
- *        - medicalReports
- *      summary: "Crear medicalReports"
- *      description: Este endpoint es para crear un reporte medico.
+ *        - healthyFoods
+ *      summary: "Crear healthy foods"
+ *      description: Este endpoint es para crear healthy foods. 
  *      requestBody:
  *          content:
  *            application/json:
  *              schema:
- *                $ref: "#/components/schemas/medicalReports"
+ *                $ref: "#/components/schemas/healthyFoods"
+ * 
  *      responses:
  *        '200':
  *          description: Retorna el objeto insertado en la coleccion.
@@ -69,23 +68,25 @@ medicalReportRouter.get(
  *          description: Error de validacion.
  */
 
-medicalReportRouter.post(
-  '/medicalReports',
-  medicalReportController.createMedicalReport
+
+healthyFoodsRouter.post(
+  '/healthyFoods',
+  healthyFoodsController.createHealthyFoods
 );
+
 
 /**
  * @swagger
- * /medicalReports/{id}:
+ * /healthyFoods/{id}:
  *    put:
  *      tags: 
- *        - medicalReports
- *      summary: "Editar medicalReports"
- *      description: Este endpoint es para editar reportes medicos.
+ *        - healthyFoods
+ *      summary: "Editar healthy foods"
+ *      description: Este endpoint es para editar healthy foods. 
  *      parameters:
  *        - name: id
  *          in: path
- *          description: ID del medicalReports
+ *          description: ID de healthy foods
  *          required: true
  *          schema:
  *            type: string
@@ -94,30 +95,33 @@ medicalReportRouter.post(
  *          content:
  *            application/json:
  *              schema:
- *                $ref: "#/components/schemas/medicalReports"
+ *                $ref: "#/components/schemas/healthyFoods"
  *      responses:
  *        '200':
  *          description: Retorna el objeto editado .
  *        '422':
  *          description: Error de validacion.
  */
-medicalReportRouter.put(
-  '/medicalReports/:id',
-  medicalReportController.updateMedicalReport
+
+
+healthyFoodsRouter.put(
+  '/healthyFoods/:id',
+  healthyFoodsController.updateHealthyFoods
 );
+
 
 /**
  * @swagger
- * /medicalReports/{id}:
+ * /healthyFoods/{id}:
  *    delete:
  *      tags: 
- *        - medicalReports
- *      summary: "Eliminar medicalReports"
- *      description: Este endpoint es para eliminar un reporte medico.
+ *        - healthyFoods
+ *      summary: "Eliminar healthy foods"
+ *      description: Este endpoint es para eliminar una healthy foods.
  *      parameters:
  *        - name: id
  *          in: path
- *          description: ID de medicalReports
+ *          description: ID de healthy foods
  *          required: true
  *          schema:
  *            type: string
@@ -130,9 +134,9 @@ medicalReportRouter.put(
  */
 
 
-medicalReportRouter.delete(
-  '/medicalReports/:id',
-  medicalReportController.deleteMedicalReport
+healthyFoodsRouter.delete(
+  '/healthyFoods/:id',
+  healthyFoodsController.deleteHealthyFoods
 );
 
-export default medicalReportRouter;
+export default healthyFoodsRouter;

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const ProfileSchema = new mongoose_1.Schema({
     birthday: {
-        type: Date,
+        type: String,
         required: false,
     },
     weight: {
@@ -14,16 +14,10 @@ const ProfileSchema = new mongoose_1.Schema({
         type: Number,
         required: false,
     },
-    diseases: [{
-            name: {
-                type: String,
-                unique: true,
-                lowercase: true,
-            },
-            description: {
-                type: String,
-            },
-        }],
+    diseases: {
+        type: Array,
+        default: []
+    },
     complete: {
         type: Boolean,
         default: false,

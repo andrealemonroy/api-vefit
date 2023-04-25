@@ -25,6 +25,10 @@ configPassport;
 import webinarRouter from "./routes/webinars.routes";
 import profileRouter from "./routes/profile.routes";
 
+import swaggerUi from "swagger-ui-express";
+import swaggerSetup from './SwaggerOptions';
+
+
 connectDB();
 
 const app = express();
@@ -77,6 +81,9 @@ app.use(ingredientsRouter);
 app.use(categoriesRouter);
 app.use(webinarRouter);
 app.use(profileRouter);
+
+
+app.use("/docs",swaggerUi.serve, swaggerUi.setup(swaggerSetup))
 
 app.listen(port, () => {
    return console.log(`Server is listening on ${port}`);

@@ -70,52 +70,40 @@ export const signUp = async (req: any, res: any) => {
  };
 
 export const signIn = async (req: any, res: any) => {
-    console.log(req.body, "mensaje");
-    if (!req.body.email || !req.body.password) {
-       return res.status(400).send("El email y la contraseña son requeridos");
-    }
-    try {
-       const findUser = await findUserByEmail(req.body.email);
-       console.log(findUser);
-       const hashPassword = await UserCapa1.findOne({ email: String }).select(
-          "password"
-       );
-       console.log(findUser, "findUser");
-       const checkPassword = await compare(
-          req.body.password,
-          hashPassword.password
-       );
-       findUser.set("password", undefined, { strict: false }); // oculto la password
-       console.log(findUser.password, "escondela");
-       if (!checkPassword) {
-          handleHtppError(res, "Invalid Password", 401);
-          return;
-       }
-       if (!findUser) {
-          return res.status(404).send("No user found.");
-       }
-       console.log(findUser?.password, req.body.password);
-       if (findUser?.password != req.body.password) {
-          return res.status(401).json({
-             auth: false,
-             token: null,
-             message: "Contraseña incorrecta",
-          });
-       }
- 
-       const token = createToken(findUser);
- 
-       res.status(200).json({
-          auth: true,
-          token,
-          message: "Bienvenido a tu cuenta",
-          user: findUser,
-       });
-    } catch (error) {
-       console.log(error);
-       res.status(500).send("Error al iniciar sesión");
-    }
- };
+   if (!req.body.email || !req.body.password) {
+      return res.status(400).send("El email y la contraseña son requeridos");
+   }
+   try {
+      const findUser = await findUserByEmail(req.body.email);
+      const hashPassword = await UserCapa1.findOne({ email: req.body.email })
+
+      const checkPassword = await compare(
+         req.body.password,
+         hashPassword.password
+      );
+        
+      findUser.set("password", undefined, { strict: false }); // oculto la password
+
+      if (!checkPassword) {
+         handleHtppError(res, "Invalid Password", 401);
+         return;
+      }
+      if (!findUser) {
+         return res.status(404).send("No user found.");
+      }
+
+      const token = createToken(findUser);
+
+      res.status(200).json({
+         auth: true,
+         token,
+         message: "Bienvenido a tu cuenta",
+         user: findUser,
+      });
+   } catch (error) {
+      res.status(500).send("Error al iniciar sesión");
+   }
+};
 
 export const getUsers = async (req: any, res: any) => {
     const users = await UserCapa1Model.find().populate({path:'profile'}).select('name').select('email').select('profile');

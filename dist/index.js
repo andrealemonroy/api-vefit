@@ -21,6 +21,8 @@ passportConfig_1.deserializeUser; // deserializa usuario de passport
 passportConfig_1.configPassport;
 const webinars_routes_1 = __importDefault(require("./routes/webinars.routes"));
 const profile_routes_1 = __importDefault(require("./routes/profile.routes"));
+const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
+const SwaggerOptions_1 = __importDefault(require("./SwaggerOptions"));
 (0, database_1.connectDB)();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
@@ -59,6 +61,7 @@ app.use(ingredients_routes_1.default);
 app.use(categories_routes_1.default);
 app.use(webinars_routes_1.default);
 app.use(profile_routes_1.default);
+app.use("/docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(SwaggerOptions_1.default));
 app.listen(port, () => {
     return console.log(`Server is listening on ${port}`);
 });
