@@ -1,8 +1,7 @@
-import express, { Request, Response } from "express";
+import express  from "express";
 import cors from "cors";
 import { connectDB } from "./database";
 import userRouter from "./routes/users.routes";
-
 import authRouter from "./routes/auth.routes";
 import alimentsRouter from "./routes/aliments.routes";
 import medicalReportRouter from "./routes/medicalReports.routes";
@@ -49,7 +48,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const port = process.env.PORT || 8080;
 
-app.use((_req: Request, res: Response, next: any) => {
+app.use((_req: Request, res:any, next: any) => {
    res.header("Access-Control-Allow-Origin", "*");
    res.header(
       "Access-Control-Allow-Headers",

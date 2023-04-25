@@ -8,6 +8,6 @@ const profile_controller_1 = __importDefault(require("../controllers/profile.con
 const profileRouter = (0, express_1.Router)();
 profileRouter.post("/users/:idUser/profile", profile_controller_1.default.createProfile);
 profileRouter.put("/users/:idUser/profile", profile_controller_1.default.updateProfile);
-profileRouter.put("/users/:idUser/profile/desease", profile_controller_1.default.delteDesease);
+profileRouter.delete("/users/:idUser/profile/desease", profile_controller_1.default.delteDesease);
 exports.default = profileRouter;
 //# sourceMappingURL=profile.routes.js.map

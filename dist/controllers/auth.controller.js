@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.findUserByEmail = exports.createToken = void 0;
-const SignUpUser_model_1 = __importDefault(require("../models/SignUpUser.model"));
 const passport_1 = __importDefault(require("passport"));
 const qs_1 = __importDefault(require("qs"));
 const passportConfig_1 = require("../middleware/passportConfig");
@@ -42,7 +41,7 @@ const verifyToken = (req, res, next) => {
     next();
 };
 const findAdminByEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield SignUpUser_model_1.default.findOne({ email });
+    return yield UserCapa1_model_2.default.findOne({ email });
 });
 const findUserByEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
     return yield UserCapa1_model_2.default.findOne({ email: email });
