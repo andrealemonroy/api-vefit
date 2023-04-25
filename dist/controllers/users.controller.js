@@ -74,32 +74,20 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.signUp = signUp;
 const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body, "mensaje");
     if (!req.body.email || !req.body.password) {
         return res.status(400).send("El email y la contraseña son requeridos");
     }
     try {
         const findUser = yield (0, auth_controller_2.findUserByEmail)(req.body.email);
-        console.log(findUser);
-        const hashPassword = yield UserCapa1_model_2.default.findOne({ email: String }).select("password");
-        console.log(findUser, "findUser");
+        const hashPassword = yield UserCapa1_model_2.default.findOne({ email: req.body.email });
         const checkPassword = yield (0, handlePassword_1.compare)(req.body.password, hashPassword.password);
         findUser.set("password", undefined, { strict: false }); // oculto la password
-        console.log(findUser.password, "escondela");
         if (!checkPassword) {
             (0, hadleHtppError_1.handleHtppError)(res, "Invalid Password", 401);
             return;
         }
         if (!findUser) {
             return res.status(404).send("No user found.");
-        }
-        console.log(findUser === null || findUser === void 0 ? void 0 : findUser.password, req.body.password);
-        if ((findUser === null || findUser === void 0 ? void 0 : findUser.password) != req.body.password) {
-            return res.status(401).json({
-                auth: false,
-                token: null,
-                message: "Contraseña incorrecta",
-            });
         }
         const token = (0, auth_controller_1.createToken)(findUser);
         res.status(200).json({
@@ -110,7 +98,6 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
     catch (error) {
-        console.log(error);
         res.status(500).send("Error al iniciar sesión");
     }
 });

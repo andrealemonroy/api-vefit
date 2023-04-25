@@ -1,4 +1,3 @@
-import SignUpUser from "../models/SignUpUser.model";
 import { handleHtppError } from "../middleware/hadleHtppError";
 import { encrypt, compare } from "../middleware/handlePassword";
 import passport from "passport";
@@ -35,7 +34,7 @@ const verifyToken = (req: any, res: Response, next: any) => {
 };
 
 const findAdminByEmail = async (email: string) => {
-   return await SignUpUser.findOne({ email });
+   return await UserCapa1Model.findOne({ email });
 };
 
 export const findUserByEmail = async (email: string) => {

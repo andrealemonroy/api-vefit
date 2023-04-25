@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.putWebinar = exports.postWebinar = exports.getWebinar = exports.getWebinars = void 0;
+exports.deleteWebinar = exports.putWebinar = exports.postWebinar = exports.getWebinar = exports.getWebinars = void 0;
 const Webinars_model_1 = __importDefault(require("../models/Webinars.model"));
 const getWebinars = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const webinars = yield Webinars_model_1.default.find();
@@ -58,4 +58,9 @@ const putWebinar = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.putWebinar = putWebinar;
+const deleteWebinar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield Webinars_model_1.default.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Healthy Foods deleted' });
+});
+exports.deleteWebinar = deleteWebinar;
 //# sourceMappingURL=webinars.controller.js.map

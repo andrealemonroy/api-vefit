@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const ProfileSchema = new mongoose_1.Schema({
     birthday: {
-        type: Date,
+        type: String,
         required: false,
     },
     weight: {

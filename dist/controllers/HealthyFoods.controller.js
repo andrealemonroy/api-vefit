@@ -41,4 +41,4 @@ const deleteHealthyFoods = (req, res) => __awaiter(void 0, void 0, void 0, funct
     res.json({ message: 'Healthy Foods deleted' });
 });
 exports.deleteHealthyFoods = deleteHealthyFoods;
-//# sourceMappingURL=HealthyFoods.controller.js.map
+//# sourceMappingURL=healthyFoods.controller.js.map

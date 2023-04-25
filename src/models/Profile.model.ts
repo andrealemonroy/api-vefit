@@ -2,14 +2,18 @@ import { model, Schema, Document } from "mongoose";
 //import diseaseModel, { IDisease } from "../disease.model";
 import { ObjectId } from "bson";
 
+export interface IDisease{
+   name: string;
+   description:string
+}
 export interface ProfileI extends Document {
    _id: string;
-   birthday?: Date;
+   birthday?: String;
    createdAt: Date;
    updatedAt: Date;
    weight?: number;
    height?: number;
-   diseases?: object[];
+   diseases?: IDisease[];
    complete: boolean;
 }
 
@@ -17,7 +21,7 @@ export interface ProfileI extends Document {
 const ProfileSchema = new Schema(
    {
       birthday: {
-         type: Date,
+         type: String,
          required: false,
       },
       weight: {

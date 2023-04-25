@@ -27,7 +27,6 @@ export const postWebinar = async (req: any, res: any) =>{
     }
 }
 
-
 export const putWebinar = async (req: any, res: any) =>{
     const {id}= req.params;
     const {titulo, fechaYHora, link, responsables}= req.body;
@@ -44,6 +43,10 @@ export const putWebinar = async (req: any, res: any) =>{
     }
 }
 
+export const deleteWebinar = async (req: any, res: any) =>{
+    await Webinar.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Healthy Foods deleted' });
+}
 
 
 

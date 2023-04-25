@@ -15,7 +15,6 @@ export const getIngredients = async (req: any, res: any) => {
 };
 
 export const getIngredient = async (req: any, res: any) => {
-   console.log(req);
    const ingredient = await Ingredients.findById(req.params.id);
    res.json(ingredient);
 };
@@ -30,6 +29,8 @@ export const createIngredient = async (req: any, res: any) => {
       calories,
       category,
    } = req.body;
+   console.log(req.body);
+   
    try {
       const categories = await CategoriesModel.findOne({ name: category });
 

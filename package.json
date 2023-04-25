@@ -19,6 +19,8 @@
     "@types/express-session": "^1.17.7",
     "@types/passport": "^1.0.12",
     "@types/passport-auth0": "^1.0.5",
+    "@types/swagger-jsdoc": "^6.0.1",
+    "@types/swagger-ui-express": "^4.1.3",
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -28,7 +30,9 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.8.4",
     "passport": "^0.6.0",
-    "passport-auth0": "^1.4.3"
+    "passport-auth0": "^1.4.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
