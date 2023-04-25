@@ -1,23 +1,23 @@
-import HealthyFoods from '../models/HealthyFoods.model';
+import Recipes from '../models/Recipes.model';
 
 
 export const getHealthyFoods = async (req: any, res: any) => {
-  const healthyFoods = await HealthyFoods.find();
+  const healthyFoods = await Recipes.find();
   res.json(healthyFoods);
 };
 
 export const getHealthyFood = async (req: any, res: any) => {
-  const healthyFood = await HealthyFoods.findById(req.params.id);
+  const healthyFood = await Recipes.findById(req.params.id);
   res.json(healthyFood);
 };
 
 export const createHealthyFoods = async (req: any, res: any) => {
-  const healthyFoods = await HealthyFoods.create(req.body);
+  const healthyFoods = await Recipes.create(req.body);
   res.json(healthyFoods);
 };
 
 export const updateHealthyFoods = async (req: any, res: any) => {
-  const healthyFoods = await HealthyFoods.findByIdAndUpdate(
+  const healthyFoods = await Recipes.findByIdAndUpdate(
     req.params.id,
     req.body,
     {
@@ -28,7 +28,7 @@ export const updateHealthyFoods = async (req: any, res: any) => {
 };
 
 export const deleteHealthyFoods = async (req: any, res: any) => {
-  await HealthyFoods.findByIdAndDelete(req.params.id);
+  await Recipes.findByIdAndDelete(req.params.id);
   res.json({ message: 'Healthy Foods deleted' });
 };
 

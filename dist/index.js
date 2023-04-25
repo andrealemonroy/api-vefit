@@ -10,7 +10,7 @@ const users_routes_1 = __importDefault(require("./routes/users.routes"));
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const aliments_routes_1 = __importDefault(require("./routes/aliments.routes"));
 const medicalReports_routes_1 = __importDefault(require("./routes/medicalReports.routes"));
-const healthyFoods_routes_1 = __importDefault(require("./routes/healthyFoods.routes"));
+const recipes_routes_1 = __importDefault(require("./routes/recipes.routes"));
 const ingredients_routes_1 = __importDefault(require("./routes/ingredients.routes"));
 const categories_routes_1 = __importDefault(require("./routes/categories.routes"));
 const passportConfig_1 = require("./middleware/passportConfig");
@@ -25,6 +25,7 @@ const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const SwaggerOptions_1 = __importDefault(require("./SwaggerOptions"));
 (0, database_1.connectDB)();
 const app = (0, express_1.default)();
+app.use((0, cors_1.default)());
 const HOUR_IN_MS = 36000;
 app.use((0, express_session_1.default)({
     secret: process.env.JWT_SECRET || "secret-key",
@@ -36,7 +37,6 @@ app.use((0, express_session_1.default)({
         maxAge: HOUR_IN_MS, // tiempo de expiración de la cookie
     },
 }));
-app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 const port = process.env.PORT || 8080;
@@ -56,7 +56,7 @@ app.use(auth_routes_1.default);
 app.use(users_routes_1.default);
 app.use(aliments_routes_1.default);
 app.use(medicalReports_routes_1.default);
-app.use(healthyFoods_routes_1.default);
+app.use(recipes_routes_1.default);
 app.use(ingredients_routes_1.default);
 app.use(categories_routes_1.default);
 app.use(webinars_routes_1.default);

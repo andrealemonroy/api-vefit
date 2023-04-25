@@ -126,24 +126,6 @@ const logout = (req: any, res: any, next: (arg0: any) => any) => {
    });
 };
 
-const updateUser = async (req: any, res: any) => {
-   const user = await UserCapa1.findById(req.params.id);
-
-   if (!user) {
-      return res.status(404).send("No user found.");
-   }
-   const token = createToken(user);
-   res.status(200).json({ auth: true, token });
-};
-
-const deleteUser = async (req: any, res: any) => {
-   const user = await UserCapa1.findByIdAndDelete(req.userId);
-   if (!user) {
-      return res.status(404).send("No user found.");
-   }
-   res.status(200).json({ auth: false, token: null });
-};
-
 const me = async (req: { token: string }, res: any) => {
    const token = req.token;
    const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -153,9 +135,7 @@ const me = async (req: { token: string }, res: any) => {
 
 export default {
    adminSignIn,   
-   logout,
-   updateUser,
-   deleteUser,
+   logout,  
    verifyToken,
    me,
    callback,

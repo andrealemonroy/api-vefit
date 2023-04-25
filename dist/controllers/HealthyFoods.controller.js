@@ -13,31 +13,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteHealthyFoods = exports.updateHealthyFoods = exports.createHealthyFoods = exports.getHealthyFood = exports.getHealthyFoods = void 0;
-const HealthyFoods_model_1 = __importDefault(require("../models/HealthyFoods.model"));
+const Recipes_model_1 = __importDefault(require("../models/Recipes.model"));
 const getHealthyFoods = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const healthyFoods = yield HealthyFoods_model_1.default.find();
+    const healthyFoods = yield Recipes_model_1.default.find();
     res.json(healthyFoods);
 });
 exports.getHealthyFoods = getHealthyFoods;
 const getHealthyFood = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const healthyFood = yield HealthyFoods_model_1.default.findById(req.params.id);
+    const healthyFood = yield Recipes_model_1.default.findById(req.params.id);
     res.json(healthyFood);
 });
 exports.getHealthyFood = getHealthyFood;
 const createHealthyFoods = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const healthyFoods = yield HealthyFoods_model_1.default.create(req.body);
+    const healthyFoods = yield Recipes_model_1.default.create(req.body);
     res.json(healthyFoods);
 });
 exports.createHealthyFoods = createHealthyFoods;
 const updateHealthyFoods = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const healthyFoods = yield HealthyFoods_model_1.default.findByIdAndUpdate(req.params.id, req.body, {
+    const healthyFoods = yield Recipes_model_1.default.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
     });
     res.json(healthyFoods);
 });
 exports.updateHealthyFoods = updateHealthyFoods;
 const deleteHealthyFoods = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield HealthyFoods_model_1.default.findByIdAndDelete(req.params.id);
+    yield Recipes_model_1.default.findByIdAndDelete(req.params.id);
     res.json({ message: 'Healthy Foods deleted' });
 });
 exports.deleteHealthyFoods = deleteHealthyFoods;

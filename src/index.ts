@@ -6,7 +6,7 @@ import userRouter from "./routes/users.routes";
 import authRouter from "./routes/auth.routes";
 import alimentsRouter from "./routes/aliments.routes";
 import medicalReportRouter from "./routes/medicalReports.routes";
-import healthyFoodsRouter from "./routes/healthyFoods.routes";
+import recipesRouter from "./routes/recipes.routes";
 import ingredientsRouter from "./routes/ingredients.routes";
 import categoriesRouter from "./routes/categories.routes";
 
@@ -32,6 +32,7 @@ import swaggerSetup from './SwaggerOptions';
 connectDB();
 
 const app = express();
+app.use(cors())
 const HOUR_IN_MS = 36000;
 
 app.use(
@@ -47,7 +48,6 @@ app.use(
    })
 );
 
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -76,7 +76,7 @@ app.use(userRouter);
 
 app.use(alimentsRouter);
 app.use(medicalReportRouter);
-app.use(healthyFoodsRouter);
+app.use(recipesRouter);
 app.use(ingredientsRouter);
 app.use(categoriesRouter);
 app.use(webinarRouter);
