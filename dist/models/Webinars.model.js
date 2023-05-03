@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = require("mongoose");
-const webinars = new mongoose_1.Schema({
+import { model, Schema } from "mongoose";
+const webinars = new Schema({
     titulo: {
         type: String,
         required: true,
@@ -19,5 +17,5 @@ const webinars = new mongoose_1.Schema({
         rol: String,
     },
 });
-exports.default = (0, mongoose_1.model)("Webinars", webinars);
+export default model("Webinars", webinars);
 //# sourceMappingURL=Webinars.model.js.map

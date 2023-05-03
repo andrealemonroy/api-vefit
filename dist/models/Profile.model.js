@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = require("mongoose");
-const ProfileSchema = new mongoose_1.Schema({
+import { model, Schema } from "mongoose";
+const ProfileSchema = new Schema({
     birthday: {
         type: String,
         required: false,
@@ -25,5 +23,5 @@ const ProfileSchema = new mongoose_1.Schema({
 }, {
     timestamps: true,
 });
-exports.default = (0, mongoose_1.model)("Profile", ProfileSchema);
+export default model("Profile", ProfileSchema);
 //# sourceMappingURL=Profile.model.js.map

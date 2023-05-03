@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = require("mongoose");
-const RecipeSchema = new mongoose_1.Schema({
+import { Schema, model } from 'mongoose';
+const RecipeSchema = new Schema({
     nameFood: {
         type: String,
         required: true,
@@ -23,5 +21,5 @@ const RecipeSchema = new mongoose_1.Schema({
         default: Date.now,
     },
 });
-exports.default = (0, mongoose_1.model)('Recipes', RecipeSchema);
+export default model('Recipes', RecipeSchema);
 //# sourceMappingURL=Recipes.model.js.map

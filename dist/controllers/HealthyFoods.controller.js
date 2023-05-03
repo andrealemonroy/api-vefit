@@ -1,44 +1,24 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteHealthyFoods = exports.updateHealthyFoods = exports.createHealthyFoods = exports.getHealthyFood = exports.getHealthyFoods = void 0;
-const Recipes_model_1 = __importDefault(require("../models/Recipes.model"));
-const getHealthyFoods = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const healthyFoods = yield Recipes_model_1.default.find();
+import Recipes from '../models/Recipes.model';
+export const getHealthyFoods = async (req, res) => {
+    const healthyFoods = await Recipes.find();
     res.json(healthyFoods);
-});
-exports.getHealthyFoods = getHealthyFoods;
-const getHealthyFood = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const healthyFood = yield Recipes_model_1.default.findById(req.params.id);
+};
+export const getHealthyFood = async (req, res) => {
+    const healthyFood = await Recipes.findById(req.params.id);
     res.json(healthyFood);
-});
-exports.getHealthyFood = getHealthyFood;
-const createHealthyFoods = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const healthyFoods = yield Recipes_model_1.default.create(req.body);
+};
+export const createHealthyFoods = async (req, res) => {
+    const healthyFoods = await Recipes.create(req.body);
     res.json(healthyFoods);
-});
-exports.createHealthyFoods = createHealthyFoods;
-const updateHealthyFoods = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const healthyFoods = yield Recipes_model_1.default.findByIdAndUpdate(req.params.id, req.body, {
+};
+export const updateHealthyFoods = async (req, res) => {
+    const healthyFoods = await Recipes.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
     });
     res.json(healthyFoods);
-});
-exports.updateHealthyFoods = updateHealthyFoods;
-const deleteHealthyFoods = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield Recipes_model_1.default.findByIdAndDelete(req.params.id);
+};
+export const deleteHealthyFoods = async (req, res) => {
+    await Recipes.findByIdAndDelete(req.params.id);
     res.json({ message: 'Healthy Foods deleted' });
-});
-exports.deleteHealthyFoods = deleteHealthyFoods;
+};
 //# sourceMappingURL=healthyFoods.controller.js.map

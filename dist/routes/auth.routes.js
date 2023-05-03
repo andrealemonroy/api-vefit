@@ -1,12 +1,7 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
-const auth_controller_1 = __importDefault(require("../controllers/auth.controller"));
-const ensureAuthenticate_1 = require("../middleware/ensureAuthenticate");
-const authRouter = (0, express_1.Router)(); //signUPUser
+import { Router } from "express";
+import authController from "../controllers/auth.controller";
+import { ensureAuthenticated } from "../middleware/ensureAuthenticate";
+const authRouter = Router(); //signUPUser
 /**
  * @swagger
  * /users/{id}/profile:
@@ -34,13 +29,13 @@ const authRouter = (0, express_1.Router)(); //signUPUser
  *        '422':
  *          description: Error de validacion.
  */
-authRouter.get("/login", auth_controller_1.default.login);
-authRouter.get("/callback", auth_controller_1.default.callback);
-authRouter.get("/profileTem", ensureAuthenticate_1.ensureAuthenticated, auth_controller_1.default.profile);
-authRouter.get("/logout", auth_controller_1.default.logout);
-authRouter.post("/me", auth_controller_1.default.me);
+authRouter.get("/login", authController.login);
+authRouter.get("/callback", authController.callback);
+authRouter.get("/profileTem", ensureAuthenticated, authController.profile);
+authRouter.get("/logout", authController.logout);
+authRouter.post("/me", authController.me);
 authRouter.get("/", (_req, res) => {
     res.json({ msj: "" });
 });
-exports.default = authRouter;
+export default authRouter;
 //# sourceMappingURL=auth.routes.js.map

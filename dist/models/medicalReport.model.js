@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = require("mongoose");
-const MedicalReportSchema = new mongoose_1.Schema({
+import { Schema, model } from 'mongoose';
+const MedicalReportSchema = new Schema({
     initialDate: {
         type: String,
         required: true,
@@ -43,5 +41,5 @@ const MedicalReportSchema = new mongoose_1.Schema({
         required: true,
     },
 });
-exports.default = (0, mongoose_1.model)('MedicalReport', MedicalReportSchema);
+export default model('MedicalReport', MedicalReportSchema);
 //# sourceMappingURL=MedicalReport.model.js.map

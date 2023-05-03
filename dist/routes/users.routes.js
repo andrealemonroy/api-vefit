@@ -1,8 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
-const users_controller_1 = require("../controllers/users.controller");
-const userRouter = (0, express_1.Router)(); //UserCapa1
+import { Router } from "express";
+import { getUser, getUsers, deleteUser, signUp, signIn } from "../controllers/users.controller";
+const userRouter = Router(); //UserCapa1
 /**
  * @swagger
  * /users:
@@ -17,7 +15,7 @@ const userRouter = (0, express_1.Router)(); //UserCapa1
  *        '422':
  *          description: Error de validacion.
  */
-userRouter.get('/users', users_controller_1.getUsers);
+userRouter.get('/users', getUsers);
 /**
  * @swagger
  * /users/{id}:
@@ -40,7 +38,7 @@ userRouter.get('/users', users_controller_1.getUsers);
  *        '422':
  *          description: Error de validacion.
  */
-userRouter.get('/users/:id', users_controller_1.getUser);
+userRouter.get('/users/:id', getUser);
 /**
  * @swagger
  * /users/{id}:
@@ -63,7 +61,7 @@ userRouter.get('/users/:id', users_controller_1.getUser);
  *        '422':
  *          description: Error de validacion.
  */
-userRouter.delete('/users/:id', users_controller_1.deleteUser);
+userRouter.delete('/users/:id', deleteUser);
 /**
  * @swagger
  * /signIn:
@@ -83,7 +81,7 @@ userRouter.delete('/users/:id', users_controller_1.deleteUser);
  *        '422':
  *          description: Error de validacion.
  */
-userRouter.post('/signIn', users_controller_1.signIn); //iniciar sesion
+userRouter.post('/signIn', signIn); //iniciar sesion
 /**
  * @swagger
  * /signUp:
@@ -103,6 +101,6 @@ userRouter.post('/signIn', users_controller_1.signIn); //iniciar sesion
  *        '422':
  *          description: Error de validacion.
  */
-userRouter.post('/signUp', users_controller_1.signUp); //registrarse
-exports.default = userRouter;
+userRouter.post('/signUp', signUp); //registrarse
+export default userRouter;
 //# sourceMappingURL=users.routes.js.map

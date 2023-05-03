@@ -1,11 +1,6 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
-const profile_controller_1 = __importDefault(require("../controllers/profile.controller"));
-const profileRouter = (0, express_1.Router)();
+import { Router } from "express";
+import profileController from "../controllers/profile.controller";
+const profileRouter = Router();
 /**
  * @swagger
  * /users/{id}/profile:
@@ -33,7 +28,7 @@ const profileRouter = (0, express_1.Router)();
  *        '422':
  *          description: Error de validacion.
  */
-profileRouter.post("/users/:idUser/profile", profile_controller_1.default.createProfile);
+profileRouter.post("/users/:idUser/profile", profileController.createProfile);
 /**
  * @swagger
  * /users/{id}/profile:
@@ -61,7 +56,7 @@ profileRouter.post("/users/:idUser/profile", profile_controller_1.default.create
  *        '422':
  *          description: Error de validacion.
  */
-profileRouter.put("/users/:idUser/profile", profile_controller_1.default.updateProfile);
+profileRouter.put("/users/:idUser/profile", profileController.updateProfile);
 /**
  * @swagger
  * /users/{id}/profile/desease:
@@ -89,6 +84,6 @@ profileRouter.put("/users/:idUser/profile", profile_controller_1.default.updateP
  *        '422':
  *          description: Error de validacion.
  */
-profileRouter.delete("/users/:idUser/profile/desease", profile_controller_1.default.delteDesease);
-exports.default = profileRouter;
+profileRouter.delete("/users/:idUser/profile/desease", profileController.delteDesease);
+export default profileRouter;
 //# sourceMappingURL=profile.routes.js.map
