@@ -77,6 +77,10 @@ export const signIn = async (req: any, res: any) => {
       const findUser = await findUserByEmail(req.body.email);
       const hashPassword = await UserCapa1.findOne({ email: req.body.email })
 
+      if (!hashPassword || !findUser) {
+         return res.status(404).send("No user found.");
+      }
+      
       const checkPassword = await compare(
          req.body.password,
          hashPassword.password

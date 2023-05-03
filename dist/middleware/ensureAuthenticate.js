@@ -1,8 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ensureAuthenticated = void 0;
 require('passport');
-export const ensureAuthenticated = (req, res, next) => {
+const ensureAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         return next();
     }
     res.redirect('/login');
 };
-//# sourceMappingURL=ensureAuthenticate.js.map
+exports.ensureAuthenticated = ensureAuthenticated;

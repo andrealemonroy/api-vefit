@@ -97,9 +97,9 @@ const callback = (req: Request, res: Response, next: any) => {
 const profile = async (req: any, res: any, next: any) => {
    const { email } = req.user;
    try {
-      const user: UserCapa1I = await UserCapa1.findOne({ email: email });
-      return res.json(user);
-   } catch (error) {
+      const user = await UserCapa1.findOne({ email: email });
+      user === null ? res.status(404).json({ message: "User not found" }) : res.status(200).json(user);
+   } catch (error : any) {
       console.log(error.message);
       res.status(500).json({ message: error.message });
    }

@@ -1,18 +1,25 @@
-import passport from "passport";
-import qs from "qs";
-import { configPassport } from "../middleware/passportConfig";
-import UserCapa1 from "../models/UserCapa1.model";
-import UserCapa1Model from "../models/UserCapa1.model";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.findUserByEmail = exports.createToken = void 0;
+const passport_1 = __importDefault(require("passport"));
+const qs_1 = __importDefault(require("qs"));
+const passportConfig_1 = require("../middleware/passportConfig");
+const UserCapa1_model_1 = __importDefault(require("../models/UserCapa1.model"));
+const UserCapa1_model_2 = __importDefault(require("../models/UserCapa1.model"));
 require("dotenv").config();
 const { AUTH0_DOMAIN, AUTH0_CLIENT_ID, LOCAL_HOST } = process.env;
-configPassport; // configuracion passport
+passportConfig_1.configPassport; // configuracion passport
 const jwt = require("jsonwebtoken");
-export const createToken = (user) => {
+const createToken = (user) => {
     console.log("createToken", process.env.JWT_SECRET);
     return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
         expiresIn: 1000, // 24 hours
     });
 };
+exports.createToken = createToken;
 const verifyToken = (req, res, next) => {
     const token = req.headers["x-access-token"];
     if (!token) {
@@ -25,11 +32,12 @@ const verifyToken = (req, res, next) => {
     next();
 };
 const findAdminByEmail = async (email) => {
-    return await UserCapa1Model.findOne({ email });
+    return await UserCapa1_model_2.default.findOne({ email });
 };
-export const findUserByEmail = async (email) => {
-    return await UserCapa1Model.findOne({ email: email });
+const findUserByEmail = async (email) => {
+    return await UserCapa1_model_2.default.findOne({ email: email });
 };
+exports.findUserByEmail = findUserByEmail;
 const adminSignIn = async (req, res) => {
     if (!req.body.email || !req.body.password) {
         return res.status(400).send("El email y la contraseña son requeridos");
@@ -40,14 +48,14 @@ const adminSignIn = async (req, res) => {
         if (!findUser) {
             return res.status(404).send("No user found.");
         }
-        if (findUser?.password !== req.body.password) {
+        if ((findUser === null || findUser === void 0 ? void 0 : findUser.password) !== req.body.password) {
             return res.status(401).json({
                 auth: false,
                 token: null,
                 message: "Contraseña incorrecta",
             });
         }
-        const token = createToken(findUser);
+        const token = (0, exports.createToken)(findUser);
         res.status(200).json({
             auth: true,
             token,
@@ -60,10 +68,10 @@ const adminSignIn = async (req, res) => {
         res.status(500).send("Error al iniciar sesión");
     }
 };
-const login = passport.authenticate("auth0", { scope: "openid profile email" }); // usa la estartegia definida para el login definida en passport
+const login = passport_1.default.authenticate("auth0", { scope: "openid profile email" }); // usa la estartegia definida para el login definida en passport
 const callback = (req, res, next) => {
     // callback maneja la respuesta de autenticaciones
-    passport.authenticate("auth0", (err, user, _info) => {
+    passport_1.default.authenticate("auth0", (err, user, _info) => {
         if (err) {
             return next(err);
         }
@@ -81,8 +89,8 @@ const callback = (req, res, next) => {
 const profile = async (req, res, next) => {
     const { email } = req.user;
     try {
-        const user = await UserCapa1.findOne({ email: email });
-        return res.json(user);
+        const user = await UserCapa1_model_1.default.findOne({ email: email });
+        user === null ? res.status(404).json({ message: "User not found" }) : res.status(200).json(user);
     }
     catch (error) {
         console.log(error.message);
@@ -101,17 +109,17 @@ const logout = (req, res, next) => {
         // console.log(req);
         req.session.destroy((err) => {
             res.clearCookie("connect.sid");
-            res.redirect(`https://${AUTH0_DOMAIN}/oidc/logout?get_logout_redirect_uri= ${qs.stringify(params)}`);
+            res.redirect(`https://${AUTH0_DOMAIN}/oidc/logout?get_logout_redirect_uri= ${qs_1.default.stringify(params)}`);
         });
     });
 };
 const me = async (req, res) => {
     const token = req.token;
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await UserCapa1.findById(decoded.id);
+    const user = await UserCapa1_model_1.default.findById(decoded.id);
     res.json(user);
 };
-export default {
+exports.default = {
     adminSignIn,
     logout,
     verifyToken,
@@ -120,4 +128,3 @@ export default {
     login,
     profile,
 };
-//# sourceMappingURL=auth.controller.js.map

@@ -1,5 +1,7 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 require('dotenv').config();
-export default {
+exports.default = {
     jwtSecret: process.env.JWT_SECRET || "somesecrettoken",
     PORT: process.env.PORT,
     DB: {
@@ -8,4 +10,3 @@ export default {
         PASSWORD: process.env.MONGODB_PASSWORD,
     },
 };
-//# sourceMappingURL=config.js.map

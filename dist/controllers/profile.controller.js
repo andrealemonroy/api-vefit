@@ -1,10 +1,15 @@
-import Profile from "../models/Profile.model";
-import UserCapa1 from "../models/UserCapa1.model";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Profile_model_1 = __importDefault(require("../models/Profile.model"));
+const UserCapa1_model_1 = __importDefault(require("../models/UserCapa1.model"));
 const createProfile = async (req, res) => {
     const { idUser } = req.params;
     const { birthday, weight, height, diseases } = req.body;
     try {
-        const newProfile = await Profile.create({
+        const newProfile = await Profile_model_1.default.create({
             birthday,
             weight,
             height,
@@ -14,10 +19,12 @@ const createProfile = async (req, res) => {
         if (!weight || !height) {
             return res
                 .status(400)
-                .send({ message: "Tu peso y altura son necesarios" });
+                .send({ message: 'Tu peso y altura son necesarios' });
         }
-        const user = await UserCapa1.findByIdAndUpdate(idUser, { profile: newProfile }, { new: true }).populate({ path: "profile" });
-        return res.status(201).json(user.profile);
+        const user = await UserCapa1_model_1.default.findByIdAndUpdate(idUser, { profile: newProfile }, { new: true }).populate({ path: 'profile' });
+        user
+            ? res.status(200).json(user)
+            : res.status(404).send('Usuario no encontrado');
     }
     catch (error) {
         console.log(error.message);
@@ -27,10 +34,13 @@ const createProfile = async (req, res) => {
 const updateProfile = async (req, res) => {
     const { idUser } = req.params;
     try {
-        const user = await UserCapa1.findById(idUser).populate({
-            path: "profile",
+        const user = await UserCapa1_model_1.default.findById(idUser).populate({
+            path: 'profile',
         });
-        const newProfile = await Profile.findByIdAndUpdate(user.profile._id, req.body, { new: true });
+        if (!user) {
+            return res.status(404).send('Usuario no encontrado');
+        }
+        const newProfile = await Profile_model_1.default.findByIdAndUpdate(user.profile._id, req.body, { new: true });
         user.profile = newProfile;
         await user.save();
         return res.status(200).json(user);
@@ -41,14 +51,22 @@ const updateProfile = async (req, res) => {
     }
 };
 const delteDesease = async (req, res) => {
+    var _a;
     const { idUser } = req.params;
     const desease = req.body;
     try {
         if (!desease) {
-            return res.status(400).send("Que enfermedad deseas eliminar de tu lista.");
+            return res
+                .status(400)
+                .send('Que enfermedad deseas eliminar de tu lista.');
         }
-        const user = await UserCapa1.findById(idUser).populate({ path: "profile" });
-        user.profile.diseases = user.profile.diseases.filter(e => e.name !== desease.name);
+        const user = await UserCapa1_model_1.default.findById(idUser).populate({
+            path: 'profile',
+        });
+        if (!user) {
+            return res.status(404).send('Usuario no encontrado');
+        }
+        user.profile.diseases = (_a = user.profile.diseases) === null || _a === void 0 ? void 0 : _a.filter((d) => d.name !== desease.name);
         await user.profile.save();
         return res.status(200).send(user);
     }
@@ -56,9 +74,8 @@ const delteDesease = async (req, res) => {
         console.log(error.message);
     }
 };
-export default {
+exports.default = {
     createProfile,
     updateProfile,
-    delteDesease
+    delteDesease,
 };
-//# sourceMappingURL=profile.controller.js.map

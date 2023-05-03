@@ -1,24 +1,34 @@
-import Recipes from '../models/Recipes.model';
-export const getHealthyFoods = async (req, res) => {
-    const healthyFoods = await Recipes.find();
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteHealthyFoods = exports.updateHealthyFoods = exports.createHealthyFoods = exports.getHealthyFood = exports.getHealthyFoods = void 0;
+const Recipes_model_1 = __importDefault(require("../models/Recipes.model"));
+const getHealthyFoods = async (req, res) => {
+    const healthyFoods = await Recipes_model_1.default.find();
     res.json(healthyFoods);
 };
-export const getHealthyFood = async (req, res) => {
-    const healthyFood = await Recipes.findById(req.params.id);
+exports.getHealthyFoods = getHealthyFoods;
+const getHealthyFood = async (req, res) => {
+    const healthyFood = await Recipes_model_1.default.findById(req.params.id);
     res.json(healthyFood);
 };
-export const createHealthyFoods = async (req, res) => {
-    const healthyFoods = await Recipes.create(req.body);
+exports.getHealthyFood = getHealthyFood;
+const createHealthyFoods = async (req, res) => {
+    const healthyFoods = await Recipes_model_1.default.create(req.body);
     res.json(healthyFoods);
 };
-export const updateHealthyFoods = async (req, res) => {
-    const healthyFoods = await Recipes.findByIdAndUpdate(req.params.id, req.body, {
+exports.createHealthyFoods = createHealthyFoods;
+const updateHealthyFoods = async (req, res) => {
+    const healthyFoods = await Recipes_model_1.default.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
     });
     res.json(healthyFoods);
 };
-export const deleteHealthyFoods = async (req, res) => {
-    await Recipes.findByIdAndDelete(req.params.id);
+exports.updateHealthyFoods = updateHealthyFoods;
+const deleteHealthyFoods = async (req, res) => {
+    await Recipes_model_1.default.findByIdAndDelete(req.params.id);
     res.json({ message: 'Healthy Foods deleted' });
 };
-//# sourceMappingURL=healthyFoods.controller.js.map
+exports.deleteHealthyFoods = deleteHealthyFoods;

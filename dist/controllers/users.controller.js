@@ -1,9 +1,15 @@
-import UserCapa1Model from "../models/UserCapa1.model";
-import { handleHtppError } from "../middleware/hadleHtppError";
-import { encrypt, compare } from "../middleware/handlePassword";
-import UserCapa1 from "../models/UserCapa1.model";
-import { createToken } from "./auth.controller";
-import { findUserByEmail } from "./auth.controller";
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteUser = exports.getUser = exports.getUsers = exports.signIn = exports.signUp = void 0;
+const UserCapa1_model_1 = __importDefault(require("../models/UserCapa1.model"));
+const hadleHtppError_1 = require("../middleware/hadleHtppError");
+const handlePassword_1 = require("../middleware/handlePassword");
+const UserCapa1_model_2 = __importDefault(require("../models/UserCapa1.model"));
+const auth_controller_1 = require("./auth.controller");
+const auth_controller_2 = require("./auth.controller");
 const jwt = require("jsonwebtoken");
 const verifyToken = (req, res, next) => {
     const token = req.headers["x-access-token"];
@@ -16,9 +22,9 @@ const verifyToken = (req, res, next) => {
     req.userId = decoded.id;
     next();
 };
-export const signUp = async (req, res) => {
+const signUp = async (req, res) => {
     const { name, email, password, termsAndConditions, privacyPolicy } = req.body;
-    const passwordHash = await encrypt(req.body.password); //encrypta la password
+    const passwordHash = await (0, handlePassword_1.encrypt)(req.body.password); //encrypta la password
     if (!name) {
         return res.status(400).send("El nombre es requerido");
     }
@@ -29,12 +35,12 @@ export const signUp = async (req, res) => {
         return res.status(400).send("La contraseña es requerida");
     }
     try {
-        const existingUser = await UserCapa1.findOne({ email });
+        const existingUser = await UserCapa1_model_2.default.findOne({ email });
         if (existingUser) {
             return res.status(400).send("Ya existe un usuario con ese email actualiza tu contraseña.");
         }
         console.log(req.body);
-        const user = new UserCapa1({
+        const user = new UserCapa1_model_2.default({
             name,
             email,
             password: passwordHash,
@@ -42,7 +48,7 @@ export const signUp = async (req, res) => {
             privacyPolicy,
         });
         await user.save();
-        const token = createToken(user);
+        const token = (0, auth_controller_1.createToken)(user);
         console.log(token);
         user.set("password", undefined, { strict: false }); //No muestre la password al crear
         res.status(200).json({
@@ -57,23 +63,27 @@ export const signUp = async (req, res) => {
         res.status(500).send("Error al crear el usuario");
     }
 };
-export const signIn = async (req, res) => {
+exports.signUp = signUp;
+const signIn = async (req, res) => {
     if (!req.body.email || !req.body.password) {
         return res.status(400).send("El email y la contraseña son requeridos");
     }
     try {
-        const findUser = await findUserByEmail(req.body.email);
-        const hashPassword = await UserCapa1.findOne({ email: req.body.email });
-        const checkPassword = await compare(req.body.password, hashPassword.password);
+        const findUser = await (0, auth_controller_2.findUserByEmail)(req.body.email);
+        const hashPassword = await UserCapa1_model_2.default.findOne({ email: req.body.email });
+        if (!hashPassword || !findUser) {
+            return res.status(404).send("No user found.");
+        }
+        const checkPassword = await (0, handlePassword_1.compare)(req.body.password, hashPassword.password);
         findUser.set("password", undefined, { strict: false }); // oculto la password
         if (!checkPassword) {
-            handleHtppError(res, "Invalid Password", 401);
+            (0, hadleHtppError_1.handleHtppError)(res, "Invalid Password", 401);
             return;
         }
         if (!findUser) {
             return res.status(404).send("No user found.");
         }
-        const token = createToken(findUser);
+        const token = (0, auth_controller_1.createToken)(findUser);
         res.status(200).json({
             auth: true,
             token,
@@ -85,16 +95,19 @@ export const signIn = async (req, res) => {
         res.status(500).send("Error al iniciar sesión");
     }
 };
-export const getUsers = async (req, res) => {
-    const users = await UserCapa1Model.find().populate({ path: 'profile' }).select('name').select('email').select('profile');
+exports.signIn = signIn;
+const getUsers = async (req, res) => {
+    const users = await UserCapa1_model_1.default.find().populate({ path: 'profile' }).select('name').select('email').select('profile');
     res.json(users);
 };
-export const getUser = async (req, res) => {
-    const user = await UserCapa1Model.findById(req.params.id).populate({ path: 'profile' }).select('name').select('email').select('profile');
+exports.getUsers = getUsers;
+const getUser = async (req, res) => {
+    const user = await UserCapa1_model_1.default.findById(req.params.id).populate({ path: 'profile' }).select('name').select('email').select('profile');
     res.json(user);
 };
-export const deleteUser = async (req, res) => {
-    await UserCapa1Model.findByIdAndDelete(req.params.id);
+exports.getUser = getUser;
+const deleteUser = async (req, res) => {
+    await UserCapa1_model_1.default.findByIdAndDelete(req.params.id);
     res.json({ message: 'User deleted' });
 };
-//# sourceMappingURL=users.controller.js.map
+exports.deleteUser = deleteUser;

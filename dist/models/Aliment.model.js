@@ -1,5 +1,7 @@
-import { Schema, model } from "mongoose";
-const AlimentsSchema = new Schema({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = require("mongoose");
+const AlimentsSchema = new mongoose_1.Schema({
     name: {
         type: String,
         required: true,
@@ -50,5 +52,4 @@ const AlimentsSchema = new Schema({
         required: true,
     },
 });
-export default model("Aliment", AlimentsSchema);
-//# sourceMappingURL=Aliment.model.js.map
+exports.default = (0, mongoose_1.model)("Aliment", AlimentsSchema);

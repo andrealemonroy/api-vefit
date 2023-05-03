@@ -1,8 +1,14 @@
-import Categories from '../models/Categories.model';
-import Ingredients from '../models/Ingredient.model';
-export const createCategory = async (req, res) => {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteCategory = exports.updateCategry = exports.getCategoryByIngredients = exports.getCategory = exports.createCategory = void 0;
+const Categories_model_1 = __importDefault(require("../models/Categories.model"));
+const Ingredient_model_1 = __importDefault(require("../models/Ingredient.model"));
+const createCategory = async (req, res) => {
     try {
-        const category = await Categories.create(req.body);
+        const category = await Categories_model_1.default.create(req.body);
         return res.json(category);
     }
     catch (error) {
@@ -12,20 +18,22 @@ export const createCategory = async (req, res) => {
         });
     }
 };
-export const getCategory = async (req, res) => {
-    const category = await Categories.find();
+exports.createCategory = createCategory;
+const getCategory = async (req, res) => {
+    const category = await Categories_model_1.default.find();
     return res.json(category);
 };
-export const getCategoryByIngredients = async (req, res) => {
+exports.getCategory = getCategory;
+const getCategoryByIngredients = async (req, res) => {
     try {
         const name = req.query.name;
-        const category = await Categories.findOne({ name }); // Buscar la categoría con su producto por nombre en la base de datos
+        const category = await Categories_model_1.default.findOne({ name }); // Buscar la categoría con su producto por nombre en la base de datos
         if (!category) {
             return res.status(404).json({
                 message: `No se encontró una categoría con el nombre "${name}"`,
             });
         }
-        const ingredients = await Ingredients.find({
+        const ingredients = await Ingredient_model_1.default.find({
             category: category._id,
         }).populate('category');
         res.json(ingredients);
@@ -37,15 +45,17 @@ export const getCategoryByIngredients = async (req, res) => {
             .json({ message: 'Error al obtener la categoría de ingredientes' });
     }
 };
-export const updateCategry = async (req, res) => {
-    const category = await Categories.findByIdAndUpdate(req.params.id, req.body, {
+exports.getCategoryByIngredients = getCategoryByIngredients;
+const updateCategry = async (req, res) => {
+    const category = await Categories_model_1.default.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
     });
     return res.json(category);
 };
-export const deleteCategory = async (req, res) => {
-    const category = await Categories.findByIdAndDelete(req.params.id);
+exports.updateCategry = updateCategry;
+const deleteCategory = async (req, res) => {
+    const category = await Categories_model_1.default.findByIdAndDelete(req.params.id);
     console.log(category);
     return res.json(category);
 };
-//# sourceMappingURL=categories.controller.js.map
+exports.deleteCategory = deleteCategory;

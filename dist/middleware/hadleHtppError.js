@@ -1,5 +1,8 @@
-export const handleHtppError = (res, message = "Somethings happens", code = 403) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.handleHtppError = void 0;
+const handleHtppError = (res, message = "Somethings happens", code = 403) => {
     res.status(code);
     res.send({ error: message });
 };
-//# sourceMappingURL=hadleHtppError.js.map
+exports.handleHtppError = handleHtppError;

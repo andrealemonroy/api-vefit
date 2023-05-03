@@ -9,7 +9,7 @@ export const getIngredients = async (req: any, res: any) => {
       });
 
       res.json(ingredients);
-   } catch (error) {
+   } catch (error: any) {
       console.log(error.message);
    }
 };
@@ -41,11 +41,11 @@ export const createIngredient = async (req: any, res: any) => {
          carbohydrates,
          fats,
          calories,
-         category: categories._id,
+         category: categories ? categories._id : null,
       });
 
       res.json(ingredient);
-   } catch (err) {
+   } catch (err: any) {
       throw new Error(err.message);
    }
 };

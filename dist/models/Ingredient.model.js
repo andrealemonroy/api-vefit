@@ -1,5 +1,7 @@
-import { Schema, model } from "mongoose";
-const IngredientsSchema = new Schema({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = require("mongoose");
+const IngredientsSchema = new mongoose_1.Schema({
     nameIngredient: {
         type: String,
         required: true,
@@ -26,7 +28,7 @@ const IngredientsSchema = new Schema({
         required: true,
     },
     category: {
-        type: Schema.Types.ObjectId,
+        type: mongoose_1.Schema.Types.ObjectId,
         ref: "Category"
     },
     createdAt: {
@@ -38,5 +40,4 @@ const IngredientsSchema = new Schema({
         default: Date.now,
     },
 });
-export default model("Ingredient", IngredientsSchema);
-//# sourceMappingURL=Ingredient.model.js.map
+exports.default = (0, mongoose_1.model)("Ingredient", IngredientsSchema);
