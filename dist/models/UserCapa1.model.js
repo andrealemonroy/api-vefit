@@ -29,8 +29,7 @@ const updateUser = new mongoose_1.Schema({
     },
     sub: {
         type: String,
-        unique: true,
-        require: false,
+        required: false,
     },
     profile: {
         type: mongoose_1.Schema.Types.ObjectId,

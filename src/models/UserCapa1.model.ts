@@ -40,18 +40,14 @@ const updateUser = new Schema(
       required: true,
       default: true,
     },
-    sub:{
+    sub: {
       type: String,
-      unique: true,
-      require: false,
+      required: false,
     },
     profile:{
       type: Schema.Types.ObjectId,
       ref: 'Profile',     
-      
     }
-   
-    
   },
   {
     timestamps: true,

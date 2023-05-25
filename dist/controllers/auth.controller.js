@@ -9,23 +9,21 @@ const qs_1 = __importDefault(require("qs"));
 const passportConfig_1 = require("../middleware/passportConfig");
 const UserCapa1_model_1 = __importDefault(require("../models/UserCapa1.model"));
 const UserCapa1_model_2 = __importDefault(require("../models/UserCapa1.model"));
-require("dotenv").config();
+require('dotenv').config();
 const { AUTH0_DOMAIN, AUTH0_CLIENT_ID, LOCAL_HOST } = process.env;
 passportConfig_1.configPassport; // configuracion passport
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 const createToken = (user) => {
-    console.log("createToken", process.env.JWT_SECRET);
+    console.log('createToken', process.env.JWT_SECRET);
     return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
         expiresIn: 1000, // 24 hours
     });
 };
 exports.createToken = createToken;
 const verifyToken = (req, res, next) => {
-    const token = req.headers["x-access-token"];
+    const token = req.headers['x-access-token'];
     if (!token) {
-        return res
-            .status(403)
-            .json({ auth: false, message: "No token provided." });
+        return res.status(403).json({ auth: false, message: 'No token provided.' });
     }
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = decoded.id;
@@ -40,49 +38,50 @@ const findUserByEmail = async (email) => {
 exports.findUserByEmail = findUserByEmail;
 const adminSignIn = async (req, res) => {
     if (!req.body.email || !req.body.password) {
-        return res.status(400).send("El email y la contraseña son requeridos");
+        return res.status(400).send('El email y la contraseña son requeridos');
     }
     try {
         console.log(req.body.email);
         const findUser = await findAdminByEmail(req.body.email);
         if (!findUser) {
-            return res.status(404).send("No user found.");
+            return res.status(404).send('No user found.');
         }
         if ((findUser === null || findUser === void 0 ? void 0 : findUser.password) !== req.body.password) {
             return res.status(401).json({
                 auth: false,
                 token: null,
-                message: "Contraseña incorrecta",
+                message: 'Contraseña incorrecta',
             });
         }
         const token = (0, exports.createToken)(findUser);
         res.status(200).json({
             auth: true,
             token,
-            message: "Bienvenido a tu cuenta",
+            message: 'Bienvenido a tu cuenta',
             user: findUser,
         });
     }
     catch (error) {
         console.log(error);
-        res.status(500).send("Error al iniciar sesión");
+        res.status(500).send('Error al iniciar sesión');
     }
 };
-const login = passport_1.default.authenticate("auth0", { scope: "openid profile email" }); // usa la estartegia definida para el login definida en passport
+console.log('AUTH0_DOMAIN', AUTH0_DOMAIN);
+const login = passport_1.default.authenticate('auth0', { scope: 'openid profile email' }); // usa la estartegia definida para el login definida en passport
 const callback = (req, res, next) => {
     // callback maneja la respuesta de autenticaciones
-    passport_1.default.authenticate("auth0", (err, user, _info) => {
+    passport_1.default.authenticate('auth0', (err, user, _info) => {
         if (err) {
             return next(err);
         }
         if (!user) {
-            return res.redirect("/login");
+            return res.redirect('/login');
         }
         req.logIn(user, (err) => {
             if (err) {
                 return next(err);
             }
-            res.redirect("/profileTem");
+            res.redirect('/profileTem');
         });
     })(req, res, next);
 };
@@ -90,7 +89,9 @@ const profile = async (req, res, next) => {
     const { email } = req.user;
     try {
         const user = await UserCapa1_model_1.default.findOne({ email: email });
-        user === null ? res.status(404).json({ message: "User not found" }) : res.status(200).json(user);
+        user === null
+            ? res.status(404).json({ message: 'User not found' })
+            : res.status(200).json(user);
     }
     catch (error) {
         console.log(error.message);
@@ -108,7 +109,7 @@ const logout = (req, res, next) => {
         }
         // console.log(req);
         req.session.destroy((err) => {
-            res.clearCookie("connect.sid");
+            res.clearCookie('connect.sid');
             res.redirect(`https://${AUTH0_DOMAIN}/oidc/logout?get_logout_redirect_uri= ${qs_1.default.stringify(params)}`);
         });
     });
