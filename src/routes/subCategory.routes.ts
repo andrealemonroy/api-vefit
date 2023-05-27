@@ -1,5 +1,5 @@
 import { Router } from "express";
-import * as subCategoriesController from "../controllers/categories.controller"
+import * as subCategoriesController from "../controllers/subCategories.controller";
 
 
 const subCategoriesRouter = Router() 
@@ -19,7 +19,7 @@ const subCategoriesRouter = Router()
 *          description: Error de validacion.
 */
 
-subCategoriesRouter.get('/subCategory', subCategoriesController.getCategory);
+subCategoriesRouter.get('/subCategory', subCategoriesController.getSubCategory);
  
 
 /** 
@@ -46,7 +46,7 @@ subCategoriesRouter.get('/subCategory', subCategoriesController.getCategory);
  */
 
 
-subCategoriesRouter.post('/subCategory', subCategoriesController.createCategory);
+subCategoriesRouter.post('/subCategory', subCategoriesController.createSubCategory);
 
 
 /**
@@ -68,9 +68,6 @@ subCategoriesRouter.post('/subCategory', subCategoriesController.createCategory)
  *        '422':
  *          description: Error de validacion.
  */
-
-
-subCategoriesRouter.get('/categoryProduct', subCategoriesController.getCategoryByIngredients);//
 
 
 /**
@@ -102,7 +99,7 @@ subCategoriesRouter.get('/categoryProduct', subCategoriesController.getCategoryB
  */
 
 
-subCategoriesRouter.put("/subCategory/:id", subCategoriesController.updateCategry);
+subCategoriesRouter.put("/subCategory/:id", subCategoriesController.updateSubCategory);
 
 
 /**
@@ -129,6 +126,6 @@ subCategoriesRouter.put("/subCategory/:id", subCategoriesController.updateCategr
  */
 
 
-subCategoriesRouter.delete("/subCategory/:id", subCategoriesController.deleteCategory);
+subCategoriesRouter.delete("/subCategory/:id", subCategoriesController.deleteSubCategory);
 
 export default subCategoriesRouter

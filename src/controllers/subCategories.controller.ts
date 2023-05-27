@@ -39,7 +39,7 @@ export const getSubCategoryByIngredients = async (req: any, res: any) => {
   }
 };
 
-export const updateCategry = async (req: any, res: any): Promise<Response> => {
+export const updateSubCategory = async (req: any, res: any): Promise<Response> => {
   const subCategory = await SubCategories.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });

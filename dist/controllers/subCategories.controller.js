@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteSubCategory = exports.updateCategry = exports.getSubCategoryByIngredients = exports.getSubCategory = exports.createSubCategory = void 0;
+exports.deleteSubCategory = exports.updateSubCategory = exports.getSubCategoryByIngredients = exports.getSubCategory = exports.createSubCategory = void 0;
 const Subcategories_model_1 = __importDefault(require("../models/Subcategories.model"));
 const Ingredient_model_1 = __importDefault(require("../models/Ingredient.model"));
 const createSubCategory = async (req, res) => {
@@ -46,13 +46,13 @@ const getSubCategoryByIngredients = async (req, res) => {
     }
 };
 exports.getSubCategoryByIngredients = getSubCategoryByIngredients;
-const updateCategry = async (req, res) => {
+const updateSubCategory = async (req, res) => {
     const subCategory = await Subcategories_model_1.default.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
     });
     return res.json(subCategory);
 };
-exports.updateCategry = updateCategry;
+exports.updateSubCategory = updateSubCategory;
 const deleteSubCategory = async (req, res) => {
     const subCategory = await Subcategories_model_1.default.findByIdAndDelete(req.params.id);
     console.log(subCategory);

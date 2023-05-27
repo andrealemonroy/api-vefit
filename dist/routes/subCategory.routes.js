@@ -24,7 +24,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const subCategoriesController = __importStar(require("../controllers/categories.controller"));
+const subCategoriesController = __importStar(require("../controllers/subCategories.controller"));
 const subCategoriesRouter = (0, express_1.Router)();
 /**
 * @swagger
@@ -40,7 +40,7 @@ const subCategoriesRouter = (0, express_1.Router)();
 *        '422':
 *          description: Error de validacion.
 */
-subCategoriesRouter.get('/subCategory', subCategoriesController.getCategory);
+subCategoriesRouter.get('/subCategory', subCategoriesController.getSubCategory);
 /**
  * @swagger
  * /subCategory/{id}:
@@ -63,7 +63,7 @@ subCategoriesRouter.get('/subCategory', subCategoriesController.getCategory);
  *        '422':
  *          description: Error de validacion.
  */
-subCategoriesRouter.post('/subCategory', subCategoriesController.createCategory);
+subCategoriesRouter.post('/subCategory', subCategoriesController.createSubCategory);
 /**
  * --------@swagger--------
  * /subCategory:
@@ -83,7 +83,6 @@ subCategoriesRouter.post('/subCategory', subCategoriesController.createCategory)
  *        '422':
  *          description: Error de validacion.
  */
-subCategoriesRouter.get('/categoryProduct', subCategoriesController.getCategoryByIngredients); //
 /**
  * @swagger
  * /subCategory/{id}:
@@ -111,7 +110,7 @@ subCategoriesRouter.get('/categoryProduct', subCategoriesController.getCategoryB
  *        '422':
  *          description: Error de validacion.
  */
-subCategoriesRouter.put("/subCategory/:id", subCategoriesController.updateCategry);
+subCategoriesRouter.put("/subCategory/:id", subCategoriesController.updateSubCategory);
 /**
  * @swagger
  * /subCategory/{id}:
@@ -134,5 +133,5 @@ subCategoriesRouter.put("/subCategory/:id", subCategoriesController.updateCategr
  *        '422':
  *          description: Error de validacion.
  */
-subCategoriesRouter.delete("/subCategory/:id", subCategoriesController.deleteCategory);
+subCategoriesRouter.delete("/subCategory/:id", subCategoriesController.deleteSubCategory);
 exports.default = subCategoriesRouter;
