@@ -28,6 +28,7 @@ import profileRouter from "./routes/profile.routes";
 import swaggerUi from "swagger-ui-express";
 import swaggerSetup from './SwaggerOptions';
 import diseasesRouter from "./routes/diseases.routes";
+import subCategoriesRouter from "./routes/subCategory.routes";
 
 
 connectDB();
@@ -82,7 +83,8 @@ app.use(ingredientsRouter);
 app.use(categoriesRouter);
 app.use(webinarRouter);
 app.use(profileRouter);
-app.use(diseasesRouter)
+app.use(diseasesRouter);
+app.use(subCategoriesRouter);
 
 
 app.use("/docs",swaggerUi.serve, swaggerUi.setup(swaggerSetup))
