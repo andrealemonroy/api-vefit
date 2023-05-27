@@ -26,6 +26,7 @@ export const updateDisease = async (req: any, res: any): Promise<Response> => {
 
 export const deleteDisease = async (req: any, res: any): Promise<Response> => {
   const disease = await Diseases.findByIdAndDelete(req.params.id);
-  console.log(disease);
-  return res.json(disease);
+  return res.json({
+    message: 'Enfermedad eliminada',
+  })
 };

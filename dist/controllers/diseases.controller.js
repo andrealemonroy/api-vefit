@@ -32,7 +32,8 @@ const updateDisease = async (req, res) => {
 exports.updateDisease = updateDisease;
 const deleteDisease = async (req, res) => {
     const disease = await Diseases_model_1.default.findByIdAndDelete(req.params.id);
-    console.log(disease);
-    return res.json(disease);
+    return res.json({
+        message: 'Enfermedad eliminada',
+    });
 };
 exports.deleteDisease = deleteDisease;
